@@ -6,10 +6,11 @@ from selenium.webdriver.support import expected_conditions as EC
 from page_objects.about_page import AboutPage
 from page_objects.action_bot import ActionBot
 from page_objects.loadable_component import LoadableComponent
+from utils.config.config_manager import ConfigProvider
 
 
 class HomePage(LoadableComponent):
-    URL = "https://store.steampowered.com"  # В конфиг
+    URL = ConfigProvider().instance().steam_url
 
     _main_by = By.CLASS_NAME, "home_page_body_ctn"
     _about_by = By.XPATH, "//*[contains(@class, 'supernav')]//a[contains(@href, 'about')]"

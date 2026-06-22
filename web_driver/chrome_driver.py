@@ -1,12 +1,14 @@
 from selenium import webdriver
 
-from web_driver.singleton_meta import SingletonMeta
+from utils.config.config_manager import ConfigProvider
+from utils.singleton_meta import SingletonMeta
 
 
 class ChromeDriver(metaclass=SingletonMeta):
     def __init__(self):
         options = self._get_default_chrome_options()
-        options.add_argument("--incognito")
+        if ConfigProvider().instance().use_incognito:
+            options.add_argument("--incognito")
         self.driver = webdriver.Chrome(options=options)
 
     def get_driver(self):
@@ -15,7 +17,6 @@ class ChromeDriver(metaclass=SingletonMeta):
     def quit(self):
         if self.driver:
             self.driver.quit()
-            SingletonMeta._instances.pop(self.__class__, None)
 
     @staticmethod
     def _get_default_chrome_options():

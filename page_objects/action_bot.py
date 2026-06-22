@@ -6,13 +6,15 @@ from selenium.common import (
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.wait import WebDriverWait
 
+from utils.config.config_manager import ConfigProvider
+
 
 class ActionBot:
     def __init__(self, driver) -> None:
         self.driver = driver
         self.wait = WebDriverWait(
             driver,
-            timeout=10,  # В конфиг
+            timeout=ConfigProvider().instance().timeout,
             ignored_exceptions=[
                 NoSuchElementException,
                 StaleElementReferenceException,
