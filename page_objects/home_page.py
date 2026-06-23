@@ -5,11 +5,10 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from page_objects.about_page import AboutPage
 from page_objects.action_bot import ActionBot
-from page_objects.loadable_component import LoadableComponent
 from utils.config.config_manager import ConfigProvider
 
 
-class HomePage(LoadableComponent):
+class HomePage:
     URL = ConfigProvider().instance().steam_url
 
     _main_by = By.CLASS_NAME, "home_page_body_ctn"
@@ -19,14 +18,12 @@ class HomePage(LoadableComponent):
         self._driver = driver
         self._bot = ActionBot(driver)
 
-    def load(self) -> None:
+    def load_page(self) -> None:
         self._driver.get(self.URL)
 
     def is_loaded(self) -> bool:
         try:
-            WebDriverWait(self._driver, 10).until(
-                EC.visibility_of_element_located(self._main_by)
-            )
+            self._bot.element(self._main_by)
             return True
         except TimeoutException:
             return False
