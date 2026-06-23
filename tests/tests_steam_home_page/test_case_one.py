@@ -7,3 +7,5 @@ def test_case_one(driver, home_page):
     about_page = home_page.get_supernav_bar().click_about()
     assert about_page.is_loaded()
     assert about_page.get_gamers_in_game() < about_page.get_gamers_online()
+    store_page = about_page.get_supernav_bar().click_store()
+    assert store_page.is_loaded()
