@@ -6,11 +6,14 @@ from page_objects.action_bot import ActionBot
 
 
 class BasePage(ABC):
-    _main_by = tuple()
-
     def __init__(self, driver):
         self._driver = driver
         self._bot = ActionBot(driver)
+
+    @property
+    @abstractmethod
+    def _main_by(self) -> tuple:
+        pass
 
     def is_loaded(self) -> bool:
         try:

@@ -11,8 +11,11 @@ from utils.config.config_manager import ConfigProvider
 class HomePage(BasePage):
     URL = ConfigProvider().instance().steam_url
 
-    _main_by = By.CLASS_NAME, "home_page_body_ctn"
     _about_by = By.XPATH, "//*[contains(@class, 'supernav')]//a[contains(@href, 'about')]"
+
+    @property
+    def _main_by(self):
+        return By.CLASS_NAME, "home_page_body_ctn"
 
     def load_page(self) -> None:
         self._driver.get(self.URL)
