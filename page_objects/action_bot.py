@@ -29,3 +29,7 @@ class ActionBot:
     def click(self, locator: tuple, parent: WebElement = None) -> None:
         element = self.element(locator, parent)
         element.click()
+
+    def text(self, locator: tuple) -> str:
+        element = self.element(locator)
+        return element.text

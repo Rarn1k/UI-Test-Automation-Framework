@@ -10,6 +10,7 @@ class SupernavBar(BasePage):
         super().__init__(driver)
         self._root = self._bot.element(self._main_by)
         self._about_by = By.XPATH, ".//a[contains(@href, 'about')]"
+        self._story_by = By.XPATH, ".//a[contains(@data-tooltip-content, 'Store')]"
 
     @property
     def _main_by(self) -> tuple:
