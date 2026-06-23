@@ -11,8 +11,8 @@ from utils.config.config_manager import ConfigProvider
 
 class ActionBot:
     def __init__(self, driver) -> None:
-        self.driver = driver
-        self.wait = WebDriverWait(
+        self._driver = driver
+        self._wait = WebDriverWait(
             driver,
             timeout=ConfigProvider().instance().timeout,
             ignored_exceptions=[
@@ -22,10 +22,10 @@ class ActionBot:
             ],
         )
 
-    def element(self, locator: tuple) -> WebElement:
-        self.wait.until(lambda driver: driver.find_element(*locator))
-        return self.driver.find_element(*locator)
+    def element(self, locator: tuple, parent: WebElement = None) -> WebElement:
+        context = parent if parent is not None else self._driver
+        return self._wait.until(lambda _: context.find_element(*locator))
 
-    def click(self, locator: tuple) -> None:
-        element = self.element(locator)
+    def click(self, locator: tuple, parent: WebElement = None) -> None:
+        element = self.element(locator, parent)
         element.click()
