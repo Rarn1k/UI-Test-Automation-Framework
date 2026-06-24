@@ -5,7 +5,7 @@ from utils.singleton_meta import SingletonMeta
 
 class DataProvider(metaclass=SingletonMeta):
     _instance: DataModel = None
-    _config_path = "./utils/config/data.json"
+    _config_path = "./utils/data/data.json"
 
     def __init__(self) -> None:
         self._instance = FileDataReader.read_and_parse(self._config_path, DataModel)

@@ -1,4 +1,5 @@
 {
-  "steam_url": "https://store.steampowered.com/",
-  "use_incognito": true
+  "os": ["SteamOS + Linux"],
+  "category3": ["LAN Co-op"],
+  "tags": ["Action"]
 }
