@@ -1,5 +1,9 @@
 {
   "steam_url": "https://store.steampowered.com/",
-  "use_incognito": true,
-  "timeout": 10
+
+  "timeout": 10,
+  "driver_window_width": 1024,
+  "driver_window_height": 768,
+  "driver_implicitly_wait": 0.5,
+  "driver_args": ["--incognito", "--no-sandbox", "--lang=en-US"]
 }
