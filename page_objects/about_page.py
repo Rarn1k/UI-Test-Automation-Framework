@@ -1,7 +1,6 @@
 from selenium.webdriver.common.by import By
 
 from page_objects.base_page import BasePage
-from page_objects.supernav_bar import SupernavBar
 
 
 class AboutPage(BasePage):
@@ -21,6 +20,3 @@ class AboutPage(BasePage):
         text = self._bot.text(self._gamers_in_game)
         nums = text.split('\n')[-1]
         return int(nums.replace(",", ""))
-
-    def get_supernav_bar(self) -> SupernavBar:
-        return SupernavBar(self._driver)

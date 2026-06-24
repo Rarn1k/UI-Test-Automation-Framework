@@ -4,7 +4,7 @@ from utils.config.config_manager import ConfigProvider
 from web_driver.chrome_driver import ChromeDriver
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture(scope="session")
 def driver():
     driver = ChromeDriver().get_driver()
     driver.set_window_size(

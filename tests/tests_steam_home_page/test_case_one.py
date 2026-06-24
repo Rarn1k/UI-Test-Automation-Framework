@@ -1,11 +1,19 @@
+from page_objects.about_page import AboutPage
+from page_objects.home_page import HomePage
+from page_objects.supernav_bar import SupernavBar
 from tests.tests_steam_home_page.conftest import home_page
 
 
 def test_case_one(driver, home_page):
     home_page.load_page()
     assert home_page.is_loaded()
-    about_page = home_page.get_supernav_bar().click_about()
+    supernav_bar = SupernavBar(driver)
+    assert supernav_bar.is_loaded()
+    supernav_bar.click_about()
+    about_page = AboutPage(driver)
     assert about_page.is_loaded()
     assert about_page.get_gamers_in_game() < about_page.get_gamers_online()
-    store_page = about_page.get_supernav_bar().click_store()
+    supernav_bar = SupernavBar(driver)
+    supernav_bar.click_store()
+    store_page = HomePage(driver)
     assert store_page.is_loaded()

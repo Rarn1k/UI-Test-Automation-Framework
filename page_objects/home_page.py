@@ -1,7 +1,6 @@
 from selenium.webdriver.common.by import By
 
 from page_objects.base_page import BasePage
-from page_objects.supernav_bar import SupernavBar
 from utils.config.config_manager import ConfigProvider
 
 
@@ -16,9 +15,6 @@ class HomePage(BasePage):
 
     def load_page(self) -> None:
         self._driver.get(self.URL)
-
-    def get_supernav_bar(self) -> SupernavBar:
-        return SupernavBar(self._driver)
 
     def click_top_sellers(self) -> None:
         self._bot.click(self._top_sellers_by)
