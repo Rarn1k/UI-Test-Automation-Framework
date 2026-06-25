@@ -1,7 +1,7 @@
 {
   "steam_url": "https://store.steampowered.com/",
 
-  "timeout": 10,
+  "timeout": 5,
   "driver_window_width": 1024,
   "driver_window_height": 768,
   "driver_implicitly_wait": 0.5,

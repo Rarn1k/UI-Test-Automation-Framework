@@ -1,3 +1,5 @@
+from typing import Callable
+
 from selenium.common import (
     NoSuchElementException,
     StaleElementReferenceException,
@@ -7,6 +9,7 @@ from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.wait import WebDriverWait
 
 from utils.config.config_manager import ConfigProvider
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class ActionBot:
@@ -26,6 +29,9 @@ class ActionBot:
         context = parent if parent is not None else self._driver
         return self._wait.until(lambda _: context.find_element(*locator))
 
+    def elements(self, locator: tuple) -> list[WebElement]:
+        return self._driver.find_elements(*locator)
+
     def click(self, locator: tuple, parent: WebElement = None) -> None:
         element = self.element(locator, parent)
         element.click()
@@ -33,3 +39,6 @@ class ActionBot:
     def text(self, locator: tuple) -> str:
         element = self.element(locator)
         return element.text
+
+    def wait_until(self, condition: Callable):
+        self._wait.until(condition)

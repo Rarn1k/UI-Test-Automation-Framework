@@ -1,5 +1,8 @@
 {
-  "os": ["SteamOS + Linux"],
-  "category3": ["LAN Co-op"],
-  "tags": ["Action"]
+  "filters": {
+    "tags": ["Action"],
+    "os": ["SteamOS + Linux"],
+    "category3": ["LAN Co-op"]
+  },
+  "first_game_attrs": ["title", "search_released", "discount_final_price"]
 }

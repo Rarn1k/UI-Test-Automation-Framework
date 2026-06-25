@@ -28,13 +28,17 @@ def test_case_two(driver, home_page):
     search_options = SearchOptions(driver)
     assert search_options.is_loaded()
 
-    search_names = [field.name for field in fields(DataModel)]
-    for name in search_names:
-        values = getattr(DataProvider().instance(), name)
-        if not values:
-            continue
+    filters = DataProvider().instance().filters
+    for name in filters.keys():
         search_element = search_options.get_option_element(name)
         search_options.expand_option(search_element)
-        for value in values:
+        for value in filters[name]:
             search_options.choose_option_element(value)
             assert search_options.is_option_selected(value)
+    results_count = search_options.get_results_count()
+    search_options.wait_change_results(results_count)
+    rows = search_options.get_rows()
+    assert search_options.get_results_count() == len(rows)
+
+
+
