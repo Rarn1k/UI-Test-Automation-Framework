@@ -1,6 +1,7 @@
-from dataclasses import fields
+from selenium import webdriver
 
 from page_objects.game_page import GamePage
+from page_objects.home_page import HomePage
 from page_objects.nav_bar import NavBar
 from page_objects.search_by_sells import SearchBySells
 from page_objects.search_options import SearchOptions
@@ -9,7 +10,7 @@ from tests.tests_steam_home_page.conftest import home_page
 from utils.data.data_manager import DataProvider
 
 
-def test_case_two(driver, home_page):
+def test_case_two(driver: webdriver, home_page: HomePage) -> None:
     home_page.load_page()
     assert home_page.is_loaded()
 

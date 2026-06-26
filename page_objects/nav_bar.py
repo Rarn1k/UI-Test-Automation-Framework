@@ -7,12 +7,12 @@ class NavBar(BasePage):
     _browse_by = By.XPATH, ".//*[(text()='Browse')]"
     _top_sellers_by = By.XPATH, ".//*[contains(text(), 'Top Sellers')]"
 
-    def __init__(self, driver):
+    def __init__(self, driver) -> None:
         super().__init__(driver)
         self._root = self._bot.element(self._main_by)
 
     @property
-    def _main_by(self) -> tuple:
+    def _main_by(self) -> tuple[str, str]:
         return By.XPATH, "//*[contains(@aria-label, 'menu')]/parent::*"
 
     def click_browse(self) -> None:

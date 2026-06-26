@@ -9,7 +9,7 @@ class AboutPage(BasePage):
     _gamers_in_game = By.XPATH, "//*[contains(*//@class, 'gamers_in_game')]"
 
     @property
-    def _main_by(self):
+    def _main_by(self) -> tuple[str, str]:
         return By.ID, "about_header_area"
 
     def get_gamers_online(self) -> int:

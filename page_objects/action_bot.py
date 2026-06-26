@@ -8,12 +8,12 @@ from selenium.common import (
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.wait import WebDriverWait
 
+from selenium import webdriver
 from utils.config.config_manager import ConfigProvider
-from selenium.webdriver.support import expected_conditions as EC
 
 
 class ActionBot:
-    def __init__(self, driver) -> None:
+    def __init__(self, driver: webdriver) -> None:
         self._driver = driver
         self._wait = WebDriverWait(
             driver,
@@ -40,5 +40,5 @@ class ActionBot:
         element = self.element(locator)
         return element.text
 
-    def wait_until(self, condition: Callable):
+    def wait_until(self, condition: Callable) -> None:
         self._wait.until(condition)

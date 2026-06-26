@@ -1,10 +1,9 @@
+from selenium import webdriver
 from selenium.common import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
-from selenium.webdriver.support.wait import WebDriverWait
 
 from page_objects.base_page import BasePage
-from utils.config.config_manager import ConfigProvider
 from utils.text_handler import TextHandler
 
 
@@ -16,12 +15,12 @@ class SearchOptions(BasePage):
     _game_released_by = By.XPATH, ".//*[contains(@class, 'search_released')]"
     _game_price_by = By.XPATH, ".//*[contains(@class, 'discount_final_price')]"
 
-    def __init__(self, driver) -> None:
+    def __init__(self, driver: webdriver) -> None:
         super().__init__(driver)
         self._root = self._bot.element(self._main_by)
 
     @property
-    def _main_by(self) -> tuple:
+    def _main_by(self) -> tuple[str, str]:
         return By.ID, "additional_search_options"
 
     def get_option_element(self, option_name: str) -> WebElement:

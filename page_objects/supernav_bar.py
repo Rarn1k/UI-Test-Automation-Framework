@@ -1,3 +1,4 @@
+from selenium import webdriver
 from selenium.webdriver.common.by import By
 
 from page_objects.base_page import BasePage
@@ -7,12 +8,12 @@ class SupernavBar(BasePage):
     _about_by = By.XPATH, ".//a[contains(@href, 'about')]"
     _store_by = By.XPATH, ".//a[contains(@data-tooltip-content, 'Store')]"
 
-    def __init__(self, driver):
+    def __init__(self, driver: webdriver) -> None:
         super().__init__(driver)
         self._root = self._bot.element(self._main_by)
 
     @property
-    def _main_by(self) -> tuple:
+    def _main_by(self) -> tuple[str, str]:
         return By.CLASS_NAME, "supernav_container"
 
     def click_about(self) -> None:

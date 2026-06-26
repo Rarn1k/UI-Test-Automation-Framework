@@ -16,9 +16,9 @@ class GamePage(BasePage):
     def get_title(self) -> str:
         return self._bot.element(self._title_by).text
 
-    def get_release(self):
+    def get_release(self) -> str:
         return self._bot.element(self._release_by).text
 
-    def get_price(self):
+    def get_price(self) -> int:
         text = self._bot.element(self._price_by).text
         return TextHandler.get_num_from_text(text)

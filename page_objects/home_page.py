@@ -10,7 +10,7 @@ class HomePage(BasePage):
     _top_sellers_by = By.ID, "tab_topsellers_content_trigger"
 
     @property
-    def _main_by(self):
+    def _main_by(self) -> tuple[str, str]:
         return By.CLASS_NAME, "home_page_body_ctn"
 
     def load_page(self) -> None:

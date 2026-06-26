@@ -5,19 +5,19 @@ from utils.singleton_meta import SingletonMeta
 
 
 class ChromeDriver(metaclass=SingletonMeta):
-    def __init__(self):
+    def __init__(self) -> None:
         options = self._set_chrome_options()
         self.driver = webdriver.Chrome(options=options)
 
-    def get_driver(self):
+    def get_driver(self) -> webdriver:
         return self.driver
 
-    def quit(self):
+    def quit(self) -> None:
         if self.driver:
             self.driver.quit()
 
     @staticmethod
-    def _set_chrome_options():
+    def _set_chrome_options() -> webdriver.ChromeOptions:
         options = webdriver.ChromeOptions()
         for arg in ConfigProvider().instance().driver_args:
             options.add_argument(arg)
