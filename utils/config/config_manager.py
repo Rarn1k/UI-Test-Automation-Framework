@@ -4,7 +4,7 @@ from utils.get_marker_path import GetMarkerPath
 from utils.singleton_meta import SingletonMeta
 
 
-class ConfigManage(metaclass=SingletonMeta):
+class ConfigManager(metaclass=SingletonMeta):
     _instance: ConfigModel = None
     _config_path = GetMarkerPath.get_marker_path() / "utils" / "config" / "config.json"
 
