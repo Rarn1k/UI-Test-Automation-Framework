@@ -1,7 +1,8 @@
+from abc import ABCMeta
 from typing import Any
 
 
-class SingletonMeta(type):
+class SingletonMeta(ABCMeta):
     _instances = {}
 
     def __call__(cls, *args, **kwargs) -> Any:
