@@ -1,6 +1,12 @@
 from abc import ABC
 
+from selenium.common import TimeoutException
 from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+
+from utils.config.config_manager import ConfigManager
 from web_driver.driver import Driver
 
 import logging
@@ -13,7 +19,14 @@ class BaseElement(ABC):
 
     def find_element(self) -> WebElement:
         logger.info(f"Ищем элемент {self._name} по локатору {self._locator}")
-        return Driver().get_driver().find_element(*self._locator)
+        try:
+            element = WebDriverWait(
+                driver=Driver().get_driver(), timeout=ConfigManager().instance().timeout
+            ).until(EC.presence_of_element_located(self._locator))
+            return element
+        except TimeoutException:
+            logger.error(f"Элемент '{self._name}' не найден по локатору {self._locator}")
+            raise
 
     @staticmethod
     def click(element: WebElement) -> None:
