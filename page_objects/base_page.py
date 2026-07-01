@@ -3,8 +3,8 @@ from abc import ABC, abstractmethod
 
 class BasePage(ABC):
     def __init__(self, locator: tuple[str, str], name: str) -> None:
-        self.__locator = locator
-        self.__name = name
+        self._locator = locator
+        self._name = name
 
     @abstractmethod
     def is_displayed(self) -> bool:
