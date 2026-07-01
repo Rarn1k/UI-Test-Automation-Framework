@@ -1,8 +1,7 @@
 from abc import ABC
 
 from selenium.webdriver.remote.webelement import WebElement
-
-from web_driver.driver_factory import DriverFactory
+from web_driver.driver import Driver
 
 
 class BaseElement(ABC):
@@ -11,7 +10,7 @@ class BaseElement(ABC):
         self.__name = name
 
     def find_element(self) -> WebElement:
-        return DriverFactory.create_driver().get_driver().find_element(*self.__locator)
+        return Driver().get_driver().find_element(*self.__locator)
 
     @staticmethod
     def click(element: WebElement) -> None:

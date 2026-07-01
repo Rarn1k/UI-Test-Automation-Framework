@@ -1,10 +1,7 @@
-from abc import ABC, abstractmethod
-
-from selenium.webdriver.common.options import ArgOptions
+from abc import ABC
 
 from selenium.webdriver.remote.webdriver import WebDriver
 
-from utils.config.config_manager import ConfigManager
 from utils.singleton_meta import SingletonMeta
 
 
