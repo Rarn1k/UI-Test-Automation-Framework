@@ -20,13 +20,3 @@ class BaseDriver(ABC, metaclass=SingletonMeta):
             self._driver.quit()
             self._driver = None
             type(self).clear_instance()
-
-    @abstractmethod
-    def _get_options(self) -> ArgOptions:
-        pass
-
-    def _set_options(self) -> ArgOptions:
-        options = self._get_options()
-        for arg in ConfigManager().instance().driver_args:
-            options.add_argument(arg)
-        return options

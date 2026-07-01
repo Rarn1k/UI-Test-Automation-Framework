@@ -14,7 +14,7 @@ class DriverFactory:
 
     @classmethod
     def create_driver(cls) -> BaseDriver:
-        driver_name = ConfigManager().instance().browser().lower()
+        driver_name = ConfigManager().instance().browser.lower()
         if driver_name not in cls._drivers:
             raise ValueError(f"Неизвестный браузер: {driver_name}")
         return cls._drivers[driver_name]()

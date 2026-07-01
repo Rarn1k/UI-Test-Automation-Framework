@@ -1,5 +1,7 @@
 from selenium import webdriver
+from selenium.webdriver.common.options import ArgOptions
 
+from utils.config.config_manager import ConfigManager
 from web_driver.base_driver import BaseDriver
 
 
@@ -9,5 +11,9 @@ class ChromeDriver(BaseDriver):
         options = self._set_options()
         self._driver = webdriver.Chrome(options=options)
 
-    def _get_options(self) -> webdriver.ChromeOptions:
-        return webdriver.ChromeOptions()
+    @staticmethod
+    def _set_options() -> ArgOptions:
+        options = webdriver.ChromeOptions()
+        for arg in ConfigManager().instance().chrome_driver_args:
+            options.add_argument(arg)
+        return options
