@@ -1,5 +1,6 @@
 {
   "alert_text": "You clicked a button",
   "confirm_text": "Do you confirm action?",
-  "confirm_result_text": "You selected Ok"
+  "confirm_result_text": "You selected Ok",
+  "prompt_text": "Please enter your name"
 }
