@@ -1,10 +1,14 @@
 from abc import ABC
 
+from selenium.common import ElementClickInterceptedException
 from selenium.webdriver.remote.webelement import WebElement
 
 from utils.waiter import Waiter
 
 import logging
+
+from web_driver.driver import Driver
+
 logger = logging.getLogger(__name__)
 
 class BaseElement(ABC):
@@ -20,4 +24,9 @@ class BaseElement(ABC):
     def click(self) -> None:
         logger.info(f"Нажимаем на элемент {self._name}")
         element = self._waiter.wait_for_clickable(self._locator)
-        element.click()
+        try:
+            element.click()
+        except ElementClickInterceptedException:
+            Driver().get_driver().execute_script("arguments[0].scrollIntoView({block: 'center'});", element)
+            element = self._waiter.wait_for_clickable(self._locator)
+            element.click()

@@ -8,6 +8,7 @@ logger = logging.getLogger(__name__)
 
 class LeftMenuPage(BasePage):
     __alerts_href = Href((By.XPATH, "//a[@href='/alerts']"), "alerts link")
+    __nested_frames_href = Href((By.XPATH, "//a[@href='/nestedframes']"), "nested frames link")
 
     def __init__(self) -> None:
         super().__init__((By.CLASS_NAME, "left-pannel"), "Left Menu Page")
@@ -18,3 +19,6 @@ class LeftMenuPage(BasePage):
 
     def click_alerts(self):
         self.__alerts_href.click()
+
+    def click_nested_frames(self):
+        self.__nested_frames_href.click()

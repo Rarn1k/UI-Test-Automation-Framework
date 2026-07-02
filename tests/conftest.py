@@ -23,6 +23,7 @@ logging.basicConfig(
 
 @pytest.fixture(scope="function")
 def driver() -> Generator[WebDriver, Any, None]:
-    Driver().get_driver().maximize_window()
-    yield Driver().get_driver()
-    Driver().quit()
+    driver_wrapper = Driver()
+    driver_wrapper.get_driver().maximize_window()
+    yield driver_wrapper.get_driver()
+    driver_wrapper.quit()
