@@ -6,3 +6,4 @@ class DataModel:
     confirm_text: str
     confirm_result_text: str
     prompt_text: str
+    prompt_result_text: str

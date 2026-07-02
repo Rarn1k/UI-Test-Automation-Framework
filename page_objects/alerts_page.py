@@ -12,6 +12,7 @@ class AlertsPage(BasePage):
     __confirm_button = Button((By.ID, "confirmButton"), "Confirm Button")
     __confirm_text = Href((By.ID, "confirmResult"), "Confirm text")
     __prompt_button = Button((By.ID, "promtButton"), "Prompt Button")
+    __prompt_text = Href((By.ID, "promptResult"), "Prompt text")
 
     def __init__(self) -> None:
         super().__init__((By.ID, "javascriptAlertsWrapper"), "Alerts Page")
@@ -31,3 +32,6 @@ class AlertsPage(BasePage):
 
     def click_prompt_alert(self):
         self.__prompt_button.click()
+
+    def find_prompt_text(self):
+        return self.__prompt_text.find_element().text

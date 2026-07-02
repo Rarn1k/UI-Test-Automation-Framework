@@ -8,6 +8,7 @@ from page_objects.main_page import MainPage
 import logging
 
 from utils.data.data_manager import DataManager
+from utils.generate_random_string import generate_random_string
 
 logger = logging.getLogger(__name__)
 
@@ -68,3 +69,15 @@ def test_alerts(driver: WebDriver, main_page: MainPage) -> None:
     logger.info(f"Проверяем, что открылся prompt алерт с текстом {expected_prompt_text}")
     assert prompt_alert.get_alert_text() == expected_prompt_text, \
         f"Текст алерта не совпал с ожидаемым {expected_prompt_text}"
+
+    random_string = generate_random_string()
+    logger.info(f"Вводим текст {random_string}")
+    prompt_alert.send_keys(random_string)
+    logger.info("Нажимаем ОК в prompt alert")
+    prompt_alert.accept_alert()
+    logger.info("Проверяем, что prompt алерт закрылся")
+    assert prompt_alert.wait_alert_closed(), "Prompt алерт не закрылся"
+    expected_prompt_result_text = DataManager().instance().prompt_result_text + random_string
+    logger.info(f"Проверяем, что появилась надпись {expected_prompt_result_text}")
+    assert alerts.find_prompt_text() == expected_prompt_result_text,\
+        f"Не появилась надпись {expected_prompt_result_text}"

@@ -22,3 +22,7 @@ class Alert:
     def wait_alert_closed(self) -> bool:
         logger.info("Ждём, пока алерт закроется")
         return self._waiter.wait_until_alert_closed()
+
+    def send_keys(self, text: str) -> None:
+        logger.info(f"Вводим текст в алерт: '{text}'")
+        self._instance.send_keys(text)
