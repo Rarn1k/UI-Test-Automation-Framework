@@ -9,6 +9,7 @@ logger = logging.getLogger(__name__)
 
 class AlertsPage(BasePage):
     __alert_button = Button((By.ID, "alertButton"), "Alert Button")
+    __confirm_button = Button((By.ID, "confirmButton"), "Confirm Button")
 
     def __init__(self) -> None:
         super().__init__((By.ID, "javascriptAlertsWrapper"), "Alerts Page")
@@ -19,3 +20,6 @@ class AlertsPage(BasePage):
 
     def click_alert(self):
         self.__alert_button.click()
+
+    def click_confirm_alert(self):
+        self.__confirm_button.click()

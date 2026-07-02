@@ -1,3 +1,4 @@
 {
-  "alert_text": "You clicked a button"
+  "alert_text": "You clicked a button",
+  "confirm_text": "Do you confirm action?"
 }

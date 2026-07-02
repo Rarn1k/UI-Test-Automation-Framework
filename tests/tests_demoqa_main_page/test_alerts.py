@@ -35,11 +35,19 @@ def test_alerts(driver: WebDriver, main_page: MainPage) -> None:
     alert = Alert()
     expected_text_alert = DataManager().instance().alert_text
     logger.info(f"Проверяем, что открылся алерт с текстом {expected_text_alert}")
-    assert alert.get_alert_text() == expected_text_alert, f"Текс алерта не совпал с ожидаемым {expected_text_alert}"
+    assert alert.get_alert_text() == expected_text_alert, f"Текст алерта не совпал с ожидаемым {expected_text_alert}"
 
     logger.info("Принимаем алерт")
     alert.accept_alert()
     logger.info("Проверяем, что алерт закрылся и мы вернулись на предыдущую страницу")
     assert alerts.is_displayed()
 
-    
+    logger.info("Нажимаем на кнопку confirm box")
+    alerts.click_confirm_alert()
+    logger.info("Создаём экземпляр confirm box")
+    confirm = Alert()
+    expected_text_confirm = DataManager().instance().confirm_text
+    logger.info(f"Проверяем, что открылся алерт с текстом {expected_text_confirm}")
+    assert confirm.get_alert_text() == expected_text_confirm, f"Текст алерта не совпал с ожидаемым {expected_text_confirm}"
+
+
