@@ -1,10 +1,14 @@
 from selenium.webdriver.remote.webdriver import WebDriver
 
+from alerts.alert import Alert
 from page_objects.alerts_page import AlertsPage
 from page_objects.left_menu_page import LeftMenuPage
 from page_objects.main_page import MainPage
 
 import logging
+
+from utils.data.data_manager import DataManager
+
 logger = logging.getLogger(__name__)
 
 
@@ -23,4 +27,13 @@ def test_alerts(driver: WebDriver, main_page: MainPage) -> None:
     logger.info("Создаём экземпляр страницы alerts")
     alerts = AlertsPage()
     logger.info("Проверяем, что открылась страница alerts")
-    assert alerts.is_displayed()
+    assert alerts.is_displayed(), "Страница alerts не отобразилась"
+
+    logger.info("Нажимаем на кнопку alert")
+    alerts.click_alert()
+    logger.info("Создаём экземпляр алерта")
+    alert = Alert()
+    expected_text_alert = DataManager().instance().alert_text
+    logger.info(f"Проверяем, что открылся алерт с текстом {expected_text_alert}")
+    assert alert.get_alert_text() == expected_text_alert, f"Текс алерта не совпал с ожидаемым {expected_text_alert}"
+

@@ -2,4 +2,4 @@ from dataclasses import dataclass
 
 @dataclass
 class DataModel:
-    pass
+    alert_text: str

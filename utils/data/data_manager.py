@@ -4,7 +4,7 @@ from utils.get_marker_path import GetMarkerPath
 from utils.singleton_meta import SingletonMeta
 
 
-class DataProvider(metaclass=SingletonMeta):
+class DataManager(metaclass=SingletonMeta):
     _instance: DataModel = None
     _data_path = GetMarkerPath.get_marker_path() / "utils" / "data" / "data.json"
 
@@ -13,5 +13,5 @@ class DataProvider(metaclass=SingletonMeta):
 
     def instance(self) -> DataModel:
         if self._instance is None:
-            raise RuntimeError("ConfigProvider не инициализирован")
+            raise RuntimeError("DataManager не инициализирован")
         return self._instance
