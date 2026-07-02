@@ -37,3 +37,9 @@ def test_alerts(driver: WebDriver, main_page: MainPage) -> None:
     logger.info(f"Проверяем, что открылся алерт с текстом {expected_text_alert}")
     assert alert.get_alert_text() == expected_text_alert, f"Текс алерта не совпал с ожидаемым {expected_text_alert}"
 
+    logger.info("Принимаем алерт")
+    alert.accept_alert()
+    logger.info("Проверяем, что алерт закрылся и мы вернулись на предыдущую страницу")
+    assert alerts.is_displayed()
+
+    

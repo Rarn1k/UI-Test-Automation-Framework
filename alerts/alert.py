@@ -1,5 +1,5 @@
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import TimeoutException, NoAlertPresentException
 
 from utils.config.config_manager import ConfigManager
 from web_driver.driver import Driver
@@ -27,3 +27,10 @@ class Alert:
     def accept_alert(self) -> None:
         logger.info(f"Принимаем алерт")
         self._instance.accept()
+
+    def is_alert_present(self):
+        try:
+            WebDriverWait(Driver().get_driver(), 3).until(lambda d: not _alert_present(d))
+            return True
+        except NoAlertPresentException:
+            return False
