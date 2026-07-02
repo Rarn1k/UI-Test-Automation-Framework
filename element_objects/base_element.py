@@ -28,10 +28,13 @@ class BaseElement(ABC):
             logger.error(f"Элемент '{self._name}' не найден по локатору {self._locator}")
             raise
 
-    @staticmethod
-    def click(element: WebElement) -> None:
-        logger.info(f"Нажимаем на элемент {element}")
-        element.click()
-
-    def find_and_click(self) -> None:
-        self.click(self.find_element())
+    def click(self) -> None:
+        logger.info(f"Нажимаем на элемент {self._name}")
+        try:
+            element = WebDriverWait(
+                driver=Driver().get_driver(), timeout=ConfigManager().instance().timeout
+            ).until(EC.element_to_be_clickable(self._locator))
+            element.click()
+        except TimeoutException:
+            logger.error(f"Элемент '{self._name}' не стал кликабельным")
+            raise

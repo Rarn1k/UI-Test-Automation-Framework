@@ -17,4 +17,4 @@ class LeftMenuPage(BasePage):
         return Href(self._locator, self._name).find_element().is_displayed()
 
     def click_alerts(self):
-        self.__alerts_href.find_and_click()
+        self.__alerts_href.click()

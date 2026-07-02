@@ -24,4 +24,4 @@ class MainPage(BasePage):
         DriverFactory.create_driver().get_driver().get(self.url)
 
     def click_alerts_windows(self) -> None:
-        self.__alerts_href.find_and_click()
+        self.__alerts_href.click()
