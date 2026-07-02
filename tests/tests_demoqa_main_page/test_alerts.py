@@ -46,8 +46,16 @@ def test_alerts(driver: WebDriver, main_page: MainPage) -> None:
     alerts.click_confirm_alert()
     logger.info("Создаём экземпляр confirm box")
     confirm = Alert()
-    expected_text_confirm = DataManager().instance().confirm_text
-    logger.info(f"Проверяем, что открылся алерт с текстом {expected_text_confirm}")
-    assert confirm.get_alert_text() == expected_text_confirm, f"Текст алерта не совпал с ожидаемым {expected_text_confirm}"
+    expected_confirm_text = DataManager().instance().confirm_text
+    logger.info(f"Проверяем, что открылся алерт с текстом {expected_confirm_text}")
+    assert confirm.get_alert_text() == expected_confirm_text, \
+        f"Текст алерта не совпал с ожидаемым {expected_confirm_text}"
 
-
+    logger.info("Принимаем confirm алерт")
+    confirm.accept_alert()
+    logger.info("Проверяем, что confirm алерт закрылся")
+    assert confirm.wait_alert_closed(), "Confirm алерт не закрылся"
+    expected_confirm_result_text = DataManager().instance().confirm_result_text
+    logger.info(f"Проверяем, что появилась надпись {expected_confirm_result_text}")
+    assert alerts.find_confirm_text() == expected_confirm_result_text,\
+        f"Не появилась надпись {expected_confirm_result_text}"

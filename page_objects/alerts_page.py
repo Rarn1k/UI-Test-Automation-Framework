@@ -10,6 +10,7 @@ logger = logging.getLogger(__name__)
 class AlertsPage(BasePage):
     __alert_button = Button((By.ID, "alertButton"), "Alert Button")
     __confirm_button = Button((By.ID, "confirmButton"), "Confirm Button")
+    __confirm_text = Href((By.ID, "confirmResult"), "Confirm text")
 
     def __init__(self) -> None:
         super().__init__((By.ID, "javascriptAlertsWrapper"), "Alerts Page")
@@ -23,3 +24,6 @@ class AlertsPage(BasePage):
 
     def click_confirm_alert(self):
         self.__confirm_button.click()
+
+    def find_confirm_text(self):
+        return self.__confirm_text.find_element().text
