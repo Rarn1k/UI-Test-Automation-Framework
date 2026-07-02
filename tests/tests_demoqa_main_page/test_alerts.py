@@ -40,7 +40,7 @@ def test_alerts(driver: WebDriver, main_page: MainPage) -> None:
     logger.info("Принимаем алерт")
     alert.accept_alert()
     logger.info("Проверяем, что алерт закрылся и мы вернулись на предыдущую страницу")
-    assert alerts.is_displayed()
+    assert alerts.is_displayed(), "Алерт не закрылся и мы не вернулись на предыдущую страницу"
 
     logger.info("Нажимаем на кнопку confirm box")
     alerts.click_confirm_alert()
