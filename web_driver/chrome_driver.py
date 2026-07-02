@@ -5,6 +5,7 @@ from utils.config.config_manager import ConfigManager
 from web_driver.base_driver import BaseDriver
 
 import logging
+
 logger = logging.getLogger(__name__)
 
 

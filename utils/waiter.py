@@ -21,7 +21,10 @@ T = TypeVar("T")
 class Waiter:
     def __init__(self):
         self._timeout = ConfigManager().instance().timeout
-        self._wait = WebDriverWait(
+
+    @property
+    def _wait(self):
+        return WebDriverWait(
             driver=Driver().get_driver(),
             timeout=self._timeout,
         )
