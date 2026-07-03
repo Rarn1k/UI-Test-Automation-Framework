@@ -1,12 +1,12 @@
 from selenium.webdriver.remote.webdriver import WebDriver
 
-from alerts.alert import Alert
 from page_objects.alerts_page import AlertsPage
 from page_objects.left_menu_page import LeftMenuPage
 from page_objects.main_page import MainPage
 
 import logging
 
+from utils.alert_manager import AlertManager
 from utils.data.data_manager import DataManager
 from utils.generate_random_string import generate_random_string
 
@@ -32,8 +32,8 @@ def test_alerts(driver: WebDriver, main_page: MainPage) -> None:
 
     logger.info("Нажимаем на кнопку alert")
     alerts.click_alert()
-    logger.info("Создаём экземпляр алерта")
-    alert = Alert()
+    logger.info("Создаём экземпляр алерт менеджера")
+    alert = AlertManager()
     expected_alert_text = DataManager().instance().alert_text
     logger.info(f"Проверяем, что открылся алерт с текстом {expected_alert_text}")
     assert alert.get_alert_text() == expected_alert_text, f"Текст алерта не совпал с ожидаемым {expected_alert_text}"
@@ -46,7 +46,7 @@ def test_alerts(driver: WebDriver, main_page: MainPage) -> None:
     logger.info("Нажимаем на кнопку confirm box")
     alerts.click_confirm_alert()
     logger.info("Создаём экземпляр confirm box")
-    confirm_alert = Alert()
+    confirm_alert = AlertManager()
     expected_confirm_text = DataManager().instance().confirm_text
     logger.info(f"Проверяем, что открылся confirm алерт с текстом {expected_confirm_text}")
     assert confirm_alert.get_alert_text() == expected_confirm_text, \
@@ -64,7 +64,7 @@ def test_alerts(driver: WebDriver, main_page: MainPage) -> None:
     logger.info("Нажимаем на кнопку prompt alert")
     alerts.click_prompt_alert()
     logger.info("Создаём экземпляр prompt алерта")
-    prompt_alert = Alert()
+    prompt_alert = AlertManager()
     expected_prompt_text = DataManager().instance().prompt_text
     logger.info(f"Проверяем, что открылся prompt алерт с текстом {expected_prompt_text}")
     assert prompt_alert.get_alert_text() == expected_prompt_text, \

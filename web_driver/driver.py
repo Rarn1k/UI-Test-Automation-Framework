@@ -21,3 +21,8 @@ class Driver(metaclass=SingletonMeta):
             self._wrapper = None
             logger.debug("Удаляем экземпляр обёртки")
             type(self).clear_instance()
+
+    def load_page(self, url: str) -> None:
+        if self._wrapper:
+            logger.info(f"Загружаем страницу с обёртки {url}")
+            self._wrapper.load_page(url)

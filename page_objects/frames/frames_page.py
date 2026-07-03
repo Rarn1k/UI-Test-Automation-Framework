@@ -1,18 +1,19 @@
 import logging
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.remote.webelement import WebElement
 
+from element_objects.Iframe import Iframe
 from element_objects.href import Href
 from page_objects.base_page import BasePage
-from page_objects.frames.bottom_frame_page import BottomFramePage
-from page_objects.frames.upper_frame_page import UpperFramePage
+
 
 
 logger = logging.getLogger(__name__)
 
 class FramesPage(BasePage):
-    __upper_frame = UpperFramePage()
-    __bottom_frame = BottomFramePage()
+    __upper_frame = Iframe((By.ID, "frame1"), "Upper frame")
+    __bottom_frame = Iframe((By.ID, "frame2"), "Bottom frame")
 
     def __init__(self) -> None:
         super().__init__((By.XPATH, "//*[@class='text-center' and text()='Frames']"),
@@ -22,10 +23,8 @@ class FramesPage(BasePage):
         logger.info(f"Проверяем, загружена ли страница {self._name}")
         return Href(self._locator, self._name).find_element().is_displayed()
 
-    def switch_to_upper_frame(self) -> None:
-        logger.info(f"Переключаемся на фрейм: {self.__upper_frame._name}")
-        self.__upper_frame.switch_to_this_frame()
+    def get_upper_frame(self) -> WebElement:
+        return self.__upper_frame.find_element()
 
-    def switch_to_bottom_frame(self) -> None:
-        logger.info(f"Переключаемся на фрейм: {self.__bottom_frame._name}")
-        self.__bottom_frame.switch_to_this_frame()
+    def get_bottom_frame(self) -> WebElement:
+        return self.__bottom_frame.find_element()

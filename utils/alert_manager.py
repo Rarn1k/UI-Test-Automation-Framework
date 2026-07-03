@@ -4,7 +4,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class Alert:
+class AlertManager:
     def __init__(self) -> None:
         self._waiter = Waiter()
         logger.info("Ждём переключения на алерт")

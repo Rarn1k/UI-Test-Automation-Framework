@@ -26,3 +26,8 @@ class BaseDriver(ABC, metaclass=SingletonMeta):
             self._driver = None
             logger.info("Удаляем экземпляр драйвера")
             type(self).clear_instance()
+
+    def load_page(self, url: str) -> None:
+        if self._driver:
+            logger.info(f"Драйвер загружает страницу {url}")
+            self._driver.get(url)
