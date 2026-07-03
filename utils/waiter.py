@@ -56,3 +56,6 @@ class Waiter:
                 return True
 
         return self._wait.until(alert_is_not_present)
+
+    def wait_for_invisibility(self, locator: tuple[str, str]) -> bool:
+        return self.until(EC.invisibility_of_element_located(locator),f"Элемент {locator} не исчез")
