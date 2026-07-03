@@ -10,6 +10,7 @@ logger = logging.getLogger(__name__)
 
 class MainPage(BasePage):
     __alerts_href = Href((By.XPATH, "//a[@href='/alertsWindows']"), "alerts link")
+    __elements_href = Href((By.XPATH, "//a[@href='/elements']"), "elements link")
 
     def __init__(self) -> None:
         super().__init__((By.CLASS_NAME, "home-banner"), "Main Page")
@@ -25,3 +26,6 @@ class MainPage(BasePage):
 
     def click_alerts_windows(self) -> None:
         self.__alerts_href.click()
+
+    def click_elements(self) -> None:
+        self.__elements_href.click()
