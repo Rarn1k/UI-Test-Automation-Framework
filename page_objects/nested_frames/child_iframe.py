@@ -1,7 +1,7 @@
 import logging
 
 from selenium.webdriver.common.by import By
-from element_objects.href import Href
+from element_objects.label import Label
 
 from page_objects.base_page import BasePage
 
@@ -9,14 +9,14 @@ logger = logging.getLogger(__name__)
 
 
 class ChildIFramePage(BasePage):
-    __page_text = Href((By.TAG_NAME, "body"), "Child frame text")
+    __page_text = Label((By.TAG_NAME, "body"), "Child frame text")
 
     def __init__(self):
         super().__init__((By.XPATH, "//*[contains(text(), 'Child Iframe')]"), "Child Iframe page")
 
     def is_displayed(self):
         logger.info(f"Проверяем, загружена ли страница {self._name}")
-        return Href(self._locator, self._name).find_element().is_displayed()
+        return Label(self._locator, self._name).find_element().is_displayed()
 
     def get_page_text(self) -> str:
         logger.info(f"Получаем текст страницы {self._name}")
