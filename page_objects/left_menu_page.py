@@ -9,6 +9,7 @@ logger = logging.getLogger(__name__)
 class LeftMenuPage(BasePage):
     __alerts_href = Href((By.XPATH, "//a[@href='/alerts']"), "alerts link")
     __nested_frames_href = Href((By.XPATH, "//a[@href='/nestedframes']"), "nested frames link")
+    __frames_href = Href((By.XPATH, "//a[@href='/frames']"), "frames link")
 
     def __init__(self) -> None:
         super().__init__((By.CLASS_NAME, "left-pannel"), "Left Menu Page")
@@ -17,8 +18,11 @@ class LeftMenuPage(BasePage):
         logger.info(f"Проверяем, загружена ли страница {self._name}")
         return Href(self._locator, self._name).find_element().is_displayed()
 
-    def click_alerts(self):
+    def click_alerts(self) -> None:
         self.__alerts_href.click()
 
-    def click_nested_frames(self):
+    def click_nested_frames(self) -> None:
         self.__nested_frames_href.click()
+
+    def click_frames(self) -> None:
+        self.__frames_href.click()

@@ -5,33 +5,32 @@ from selenium.webdriver.remote.webelement import WebElement
 
 from element_objects.Iframe import Iframe
 from element_objects.href import Href
-from page_objects.base_page import BasePage
-from page_objects.nested_frames.child_iframe import ChildIFramePage
-from web_driver.driver import Driver
+from page_objects.frames.base_frame_page import BaseFramePage
+from page_objects.frames.nested_frames.child_iframe import ChildIFramePage
 
 logger = logging.getLogger(__name__)
 
 
-class ParentFramePage(BasePage):
+class ParentFramePage(BaseFramePage):
+    __this_frame = Iframe((By.ID, "frame1"), "Parent frame")
+
     __child_Iframe = ChildIFramePage()
-    __page_text = Href((By.TAG_NAME, "body"), "Parent Frame text")
-    __get_this_frame = Iframe((By.ID, "frame1"), "Parent Frame")
+    __page_text = Href((By.TAG_NAME, "body"), "Parent frame text")
 
     def __init__(self):
-        super().__init__((By.XPATH, "//*[contains(text(), 'Parent frame')]"), "Parent Frame")
+        super().__init__((By.XPATH, "//*[contains(text(), 'Parent frame')]"), "Parent frame page")
 
     def is_displayed(self):
         logger.info(f"Проверяем, загружена ли страница {self._name}")
         return Href(self._locator, self._name).find_element().is_displayed()
 
-    def get_frame(self) -> WebElement:
-        return self.__get_this_frame.find_element()
+    def _get_this_frame(self) -> WebElement:
+        return self.__this_frame.find_element()
 
     def get_page_text(self) -> str:
         logger.info(f"Получаем текст страницы {self._name}")
-        text = self.__page_text.find_element().text.strip()
-        return text
+        return self.__page_text.find_element().text.strip()
 
     def switch_to_child_frame(self) -> None:
         logger.info(f"Переключаемся на фрейм: {self.__child_Iframe._name}")
-        Driver().get_driver().switch_to.frame(self.__child_Iframe.get_frame())
+        self.__child_Iframe.switch_to_this_frame()
