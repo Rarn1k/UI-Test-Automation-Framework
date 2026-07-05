@@ -4,7 +4,7 @@ from dataclasses import dataclass
 class TableModel:
     first_name: str
     last_name: str
-    age: int
+    age: str
     email: str
-    salary: int
+    salary: str
     department: str

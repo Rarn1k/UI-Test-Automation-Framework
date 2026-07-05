@@ -10,16 +10,16 @@
       "first_name": "Jon",
       "last_name": "Snow",
       "email": "knownothing@gmail.com",
-      "age": 30,
-      "salary": 3000,
+      "age": "30",
+      "salary": "3000",
       "department": "alpha"
     },
     {
       "first_name": "Buttercup",
       "last_name": "Cumbersnatch",
       "email": "BudapestCandygram@mail.ru",
-      "age": 41,
-      "salary": 2000,
+      "age": "41",
+      "salary": "2000",
       "department": "beta"
     }
   ]

@@ -6,6 +6,7 @@ from selenium.webdriver.remote.webdriver import WebDriver
 from page_objects.left_menu_page import LeftMenuPage
 from page_objects.main_page import MainPage
 from page_objects.registration_form_page import RegistrationFormPage
+from page_objects.table_page import TablePage
 from page_objects.web_tables_page import WebTablesPage
 from utils.data.data_manager import DataManager
 from utils.data.table_model import TableModel
@@ -13,7 +14,7 @@ from utils.data.table_model import TableModel
 logger = logging.getLogger(__name__)
 
 @pytest.mark.parametrize("user", DataManager().instance().table_users)
-def test_alerts(driver: WebDriver, main_page: MainPage, user: TableModel) -> None:
+def test_table(driver: WebDriver, main_page: MainPage, user: TableModel) -> None:
     logger.info("Проверяем, что главная страница не отобразилась")
     assert main_page.is_displayed(), "Главная страница не отобразилась"
 
@@ -43,3 +44,10 @@ def test_alerts(driver: WebDriver, main_page: MainPage, user: TableModel) -> Non
     registration.click_submit()
     logger.info("Ожидаем, что страница форма регистрации закрылась")
     assert registration.is_not_displayed(), "Страница формы регистрации не закрылась"
+    logger.info("Создаём экземпляр страницы таблицы")
+    table = TablePage()
+    logger.info("Проверяем, что таблица появилась")
+    assert table.is_displayed(), "Таблица не отобразилась"
+    logger.info(f"Проверяем, что данные пользователя {user} появились в таблице")
+    logger.info(f"{table.get_all_data()}")
+    assert table.is_data_in_table(user), f"Данные пользователя {user} не появились в таблице"

@@ -15,7 +15,7 @@ from utils.frame_manager import FrameManager
 logger = logging.getLogger(__name__)
 
 
-def test_alerts(driver: WebDriver, main_page: MainPage) -> None:
+def test_iframes(driver: WebDriver, main_page: MainPage) -> None:
     logger.info("Проверяем, что главная страница не отобразилась")
     assert main_page.is_displayed(), "Главная страница не отобразилась"
 

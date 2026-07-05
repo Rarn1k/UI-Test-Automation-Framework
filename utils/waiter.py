@@ -22,24 +22,34 @@ class Waiter:
     def __init__(self):
         self._timeout = ConfigManager().instance().timeout
 
-    @property
-    def _wait(self):
+    def _get_wait(self, context=None):
         return WebDriverWait(
-            driver=Driver().get_driver(),
+            driver=context or Driver().get_driver(),
             timeout=self._timeout,
         )
 
-    def until(self, condition: Callable, message: str = "") -> T:
+    def until(self, condition: Callable, message: str = "", context=None) -> T:
         try:
             logger.info(f"Ждём пока выполнится условие: {condition}")
-            result = self._wait.until(condition)
+            result = self._get_wait(context).until(condition)
             return result
         except TimeoutException as e:
             logger.error(f"Таймаут ожидания: {message or e}")
             raise
 
-    def wait_for_presence(self, locator: tuple[str, str]) -> WebElement:
-        return self.until(EC.presence_of_element_located(locator), f"Элемент {locator} не появился в DOM")
+    def wait_for_presence(self, locator: tuple[str, str], parent: WebElement | None = None) -> WebElement:
+        return self.until(
+            lambda context: context.find_element(*locator),
+            f"Не удалось найти элемент по локатору {locator}",
+            parent
+        )
+
+    def wait_for_all_present(self, locator: tuple[str, str], parent: WebElement | None = None) -> list[WebElement]:
+        return self.until(
+            lambda context: context.find_elements(*locator),
+            f"Не удалось найти элементы по локатору {locator}",
+            parent
+        )
 
     def wait_for_clickable(self, locator: tuple[str, str]) -> WebElement:
         return self.until(EC.element_to_be_clickable(locator), f"Элемент {locator} не стал кликабельным")
@@ -55,7 +65,7 @@ class Waiter:
             except NoAlertPresentException:
                 return True
 
-        return self._wait.until(alert_is_not_present)
+        return self._get_wait().until(alert_is_not_present)
 
     def wait_for_invisibility(self, locator: tuple[str, str]) -> bool:
-        return self.until(EC.invisibility_of_element_located(locator),f"Элемент {locator} не исчез")
+        return self.until(EC.invisibility_of_element_located(locator), f"Элемент {locator} не исчез")

@@ -40,11 +40,11 @@ class RegistrationFormPage(BasePage):
     def set_email(self, email: str):
         self.__email_input.set_value(email)
 
-    def set_age(self, age: int):
-        self.__age_input.set_value(str(age))
+    def set_age(self, age: str):
+        self.__age_input.set_value(age)
 
-    def set_salary(self, salary: int):
-        self.__salary_input.set_value(str(salary))
+    def set_salary(self, salary: str):
+        self.__salary_input.set_value(salary)
 
     def set_department(self, department: str):
         self.__department_input.set_value(department)
