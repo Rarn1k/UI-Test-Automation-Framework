@@ -51,3 +51,16 @@ def test_table(driver: WebDriver, main_page: MainPage, user: TableModel) -> None
     logger.info(f"Проверяем, что данные пользователя {user} появились в таблице")
     logger.info(f"{table.get_all_data()}")
     assert table.is_data_in_table(user), f"Данные пользователя {user} не появились в таблице"
+
+    logger.info("Получаем количество записей до удаления")
+    row_count_before = len(table.get_rows())
+    logger.info(f"Получаем строку с пользователем {user}")
+    user_row = table.find_row_by_data(user)
+    logger.info(f"Нажимаем кнопку Delete в строке пользователя {user}")
+    table.delete_row(user_row)
+    logger.info("Получаем количество записей после удаления")
+    row_count_after = len(table.get_rows())
+    logger.info("Проверяем, что количество записей в таблице изменилось")
+    assert row_count_before != row_count_after, f"Количество записей в таблице не изменилось: {row_count_before}"
+    logger.info(f"Проверяем, что пользователь {user} удалился из таблицы")
+    assert not table.find_row_by_data(user), f"Пользователь {user} не удалился из таблицы"
