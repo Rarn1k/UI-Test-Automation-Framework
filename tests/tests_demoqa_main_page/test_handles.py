@@ -32,6 +32,8 @@ def test_handles(driver: WebDriver, main_page: MainPage) -> None:
     tub_manager = TubManager()
     logger.info("Сохраняем текущие вкладки")
     old_handles = tub_manager.get_all_handles()
+    logger.info("Сохраняем текущую вкладку")
+    browser_handle = tub_manager.get_current_handle()
     logger.info("Нажимаем на кнопку New Tab")
     browser.click_new_tab()
     logger.info("Проверяем, что открыта новая вкладка /sample со страницей sample page")
@@ -43,3 +45,10 @@ def test_handles(driver: WebDriver, main_page: MainPage) -> None:
     logger.info("Создаём экземпляр страницы Sample page")
     sample = SamplePage()
     assert sample.is_displayed(), "Страница Sample page не отобразилась"
+
+    logger.info("Закрываем текущую вкладку")
+    tub_manager.close_current_window()
+    logger.info("Переключаемся на вкладку страницы Browser Windows")
+    tub_manager.switch_to_window(browser_handle)
+    logger.info("Проверяем, что открыта страница с формой Browser Windows")
+    assert browser.is_displayed(), "Страница Browser Windows не отобразилась"

@@ -1,13 +1,11 @@
 from urllib.parse import urlparse
 
-from selenium.webdriver.remote.webdriver import WebDriver
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.common.exceptions import TimeoutException
 from utils.waiter import Waiter
 from web_driver.driver import Driver
 import logging
 
 logger = logging.getLogger(__name__)
+
 
 class TubManager:
     def __init__(self) -> None:
@@ -17,6 +15,11 @@ class TubManager:
     def get_all_handles() -> list[str]:
         logger.info("Получаем все вкладки")
         return Driver().get_driver().window_handles
+
+    @staticmethod
+    def get_current_handle() -> str:
+        logger.info("Получаем текущую вкладку")
+        return Driver().get_driver().current_window_handle
 
     def get_current_url(self) -> str:
         logger.info("Получаем URL текущей вкладки")
@@ -47,4 +50,7 @@ class TubManager:
         self.switch_to_window(new_handle)
         return new_handle
 
-
+    @staticmethod
+    def close_current_window() -> None:
+        logger.info("Закрываем текущую вкладку")
+        Driver().get_driver().close()
