@@ -21,4 +21,5 @@ class NestedFramesPage(BasePage):
         return Label(self._locator, self._name).find_element().is_displayed()
 
     def get_parent_frame(self) -> WebElement:
+        logger.info(f"Получаем родительский фрейм")
         return self.__parent_frame.find_element()

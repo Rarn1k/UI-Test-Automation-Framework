@@ -14,11 +14,10 @@ class ParentFramePage(BasePage):
     __child_Iframe = Iframe((By.XPATH, "//iframe[contains(@srcdoc, 'Child Iframe')]"), "Child Iframe")
     __page_text = Label((By.TAG_NAME, "body"), "Parent frame text")
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__((By.XPATH, "//*[contains(text(), 'Parent frame')]"), "Parent frame page")
 
-    def is_displayed(self):
-        logger.info(f"Проверяем, загружена ли страница {self._name}")
+    def is_displayed(self) -> bool:
         return Label(self._locator, self._name).find_element().is_displayed()
 
     def get_page_text(self) -> str:
@@ -26,4 +25,5 @@ class ParentFramePage(BasePage):
         return self.__page_text.find_element().text.strip()
 
     def get_child_frame(self) -> WebElement:
+        logger.info(f"Получаем дочерний фрейм")
         return self.__child_Iframe.find_element()

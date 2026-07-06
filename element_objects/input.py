@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 
 
 class Input(BaseElement):
-    def __init__(self, locator: tuple[str, str], name: str):
+    def __init__(self, locator: tuple[str, str], name: str) -> None:
         super().__init__(locator, name)
 
     def set_value(self, text: str) -> None:

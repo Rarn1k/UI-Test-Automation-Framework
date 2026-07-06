@@ -11,10 +11,11 @@ logger = logging.getLogger(__name__)
 class UpperFramePage(BasePage):
     __page_text = Label((By.ID, "sampleHeading"), "Upper frame text")
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__((By.XPATH, "//*[contains(text(), 'This is a sample page')]"), "Upper frame page")
 
     def is_displayed(self) -> bool:
+        logger.info(f"Проверяем, загружена ли страница {self._name}")
         return Label(self._locator, self._name).find_element().is_displayed()
 
     def get_page_text(self) -> str:

@@ -11,10 +11,10 @@ logger = logging.getLogger(__name__)
 class ChildIFramePage(BasePage):
     __page_text = Label((By.TAG_NAME, "body"), "Child frame text")
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__((By.XPATH, "//*[contains(text(), 'Child Iframe')]"), "Child Iframe page")
 
-    def is_displayed(self):
+    def is_displayed(self) -> bool:
         logger.info(f"Проверяем, загружена ли страница {self._name}")
         return Label(self._locator, self._name).find_element().is_displayed()
 

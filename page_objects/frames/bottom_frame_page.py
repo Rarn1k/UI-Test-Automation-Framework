@@ -15,6 +15,7 @@ class BottomFramePage(BasePage):
         super().__init__((By.XPATH, "//*[contains(text(), 'This is a sample page')]"), "Bottom frame page")
 
     def is_displayed(self) -> bool:
+        logger.info(f"Проверяем, загружена ли страница {self._name}")
         return Label(self._locator, self._name).find_element().is_displayed()
 
     def get_page_text(self) -> str:

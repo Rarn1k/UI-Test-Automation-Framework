@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 class BrowserWindowsPage(BasePage):
     __new_tab_button = Button((By.ID, "tabButton"), "New tab button")
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__((By.ID, "browserWindows"), "Browser windows page")
 
     def is_displayed(self) -> bool:
@@ -20,4 +20,5 @@ class BrowserWindowsPage(BasePage):
         return Label(self._locator, self._name).find_element().is_displayed()
 
     def click_new_tab(self) -> None:
+        logger.info(f"Нажимаем на кнопку открытия новой вкладки")
         self.__new_tab_button.click()

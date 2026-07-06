@@ -22,7 +22,7 @@ class Waiter:
     def __init__(self):
         self._timeout = ConfigManager().instance().timeout
 
-    def _get_wait(self, context=None):
+    def _get_wait(self, context=None) -> WebDriverWait:
         return WebDriverWait(
             driver=context or Driver().get_driver(),
             timeout=self._timeout,

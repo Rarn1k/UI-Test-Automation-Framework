@@ -21,17 +21,22 @@ class AlertsPage(BasePage):
         logger.info(f"Проверяем, загружена ли страница {self._name}")
         return Label(self._locator, self._name).find_element().is_displayed()
 
-    def click_alert(self):
+    def click_alert(self) -> None:
+        logger.info(f"Нажимаем на кнопку алерта")
         self.__alert_button.click()
 
-    def click_confirm_alert(self):
+    def click_confirm_alert(self) -> None:
+        logger.info(f"Нажимаем на кнопку confirm алерта")
         self.__confirm_button.click()
 
-    def find_confirm_text(self):
+    def find_confirm_text(self) -> str:
+        logger.info(f"Получаем текст рядом с кнопкой confirm алерта")
         return self.__confirm_text.find_element().text
 
-    def click_prompt_alert(self):
+    def click_prompt_alert(self) -> None:
+        logger.info(f"Нажимаем на кнопку prompt алерта")
         self.__prompt_button.click()
 
-    def find_prompt_text(self):
+    def find_prompt_text(self) -> str:
+        logger.info(f"Получаем текст рядом с кнопкой prompt алерта")
         return self.__prompt_text.find_element().text
