@@ -5,6 +5,8 @@ from selenium.webdriver.remote.webdriver import WebDriver
 from page_objects.browser_windows_page import BrowserWindowsPage
 from page_objects.left_menu_page import LeftMenuPage
 from page_objects.main_page import MainPage
+from page_objects.sample_page import SamplePage
+from utils.tub_manager import TubManager
 
 logger = logging.getLogger(__name__)
 
@@ -25,3 +27,19 @@ def test_handles(driver: WebDriver, main_page: MainPage) -> None:
     browser = BrowserWindowsPage()
     logger.info("Проверяем, что открылась страница Browser Windows")
     assert browser.is_displayed(), "Страница Browser Windows не отобразилась"
+
+    logger.info("Создаём экземпляр Tub Manager")
+    tub_manager = TubManager()
+    logger.info("Сохраняем текущие вкладки")
+    old_handles = tub_manager.get_all_handles()
+    logger.info("Нажимаем на кнопку New Tab")
+    browser.click_new_tab()
+    logger.info("Проверяем, что открыта новая вкладка /sample со страницей sample page")
+    logger.info("Переключаемся на новую вкладку")
+    tub_manager.switch_to_new_window(old_handles)
+    logger.info("Проверяем, что путь текущей вкладки - /sample")
+    assert tub_manager.get_current_path() == "/sample", \
+        f"Путь текущей вкладки: {tub_manager.get_current_path()}, ожидался /sample"
+    logger.info("Создаём экземпляр страницы Sample page")
+    sample = SamplePage()
+    assert sample.is_displayed(), "Страница Sample page не отобразилась"

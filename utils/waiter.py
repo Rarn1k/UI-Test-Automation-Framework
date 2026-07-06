@@ -28,7 +28,7 @@ class Waiter:
             timeout=self._timeout,
         )
 
-    def until(self, condition: Callable, message: str = "", context=None) -> T:
+    def _until(self, condition: Callable, message: str = "", context=None) -> T:
         try:
             logger.info(f"Ждём пока выполнится условие: {condition}")
             result = self._get_wait(context).until(condition)
@@ -38,24 +38,24 @@ class Waiter:
             raise
 
     def wait_for_presence(self, locator: tuple[str, str], parent: WebElement | None = None) -> WebElement:
-        return self.until(
+        return self._until(
             lambda context: context.find_element(*locator),
             f"Не удалось найти элемент по локатору {locator}",
             parent
         )
 
     def wait_for_all_present(self, locator: tuple[str, str], parent: WebElement | None = None) -> list[WebElement]:
-        return self.until(
+        return self._until(
             lambda context: context.find_elements(*locator),
             f"Не удалось найти элементы по локатору {locator}",
             parent
         )
 
     def wait_for_clickable(self, locator: tuple[str, str]) -> WebElement:
-        return self.until(EC.element_to_be_clickable(locator), f"Элемент {locator} не стал кликабельным")
+        return self._until(EC.element_to_be_clickable(locator), f"Элемент {locator} не стал кликабельным")
 
     def wait_for_alert(self) -> Alert:
-        return self.until(EC.alert_is_present(), "Алерт не появился")
+        return self._until(EC.alert_is_present(), "Алерт не появился")
 
     def wait_until_alert_closed(self) -> bool:
         def alert_is_not_present(driver: WebDriver) -> bool:
@@ -65,7 +65,20 @@ class Waiter:
             except NoAlertPresentException:
                 return True
 
-        return self._get_wait().until(alert_is_not_present)
+        return self._until(alert_is_not_present)
 
     def wait_for_invisibility(self, locator: tuple[str, str]) -> bool:
-        return self.until(EC.invisibility_of_element_located(locator), f"Элемент {locator} не исчез")
+        return self._until(EC.invisibility_of_element_located(locator), f"Элемент {locator} не исчез")
+
+    def wait_for_new_window(self, old_handles: list[str]) -> bool:
+        return self._until(
+            lambda d: len(d.window_handles) > len(old_handles),
+            "Новая вкладка не появилась за отведённое время"
+        )
+
+    def wait_for_url_not_blank(self) -> None:
+        self._until(
+            lambda d: d.current_url != "about:blank",
+            "Ссылка осталась пустой"
+        )
+
