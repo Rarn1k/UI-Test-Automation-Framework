@@ -59,10 +59,10 @@ def test_handles(driver: WebDriver, main_page: MainPage) -> None:
     left_menu.click_elements_button()
     logger.info("В левом меню нажимаем Links")
     left_menu.click_links()
-    logger.info("Создаём экземпляр страницы Links")
+    logger.info("Создаём экземпляр страницы Links page")
     links_page = LinksPage()
-    logger.info("Проверяем, что открыта страница Links")
-    assert links_page.is_displayed(), "Страница Links не отобразилась"
+    logger.info("Проверяем, что открыта страница Links page")
+    assert links_page.is_displayed(), "Страница Links page не отобразилась"
 
     logger.info("Сохраняем текущие вкладки")
     old_handles = tub_manager.get_all_handles()
@@ -72,3 +72,8 @@ def test_handles(driver: WebDriver, main_page: MainPage) -> None:
     tub_manager.switch_to_new_window(old_handles)
     logger.info("Проверяем, что открыта страница main page")
     assert main_page.is_displayed(), "Страница main page не отобразилась"
+
+    logger.info("Переключаемся на прошлую вкладку")
+    tub_manager.switch_to_previous_window()
+    logger.info("Проверяем, что открыта страница Links page")
+    assert links_page.is_displayed(), "Страница Links page не отобразилась"

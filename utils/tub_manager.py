@@ -1,3 +1,4 @@
+from calendar import firstweekday
 from urllib.parse import urlparse
 
 from utils.waiter import Waiter
@@ -54,3 +55,18 @@ class TubManager:
     def close_current_window() -> None:
         logger.info("Закрываем текущую вкладку")
         Driver().get_driver().close()
+
+    def get_previous_window(self) -> str:
+        logger.info("Переключаемся на предыдущую вкладку")
+        handles = self.get_all_handles()
+        if len(handles) < 2:
+            raise RuntimeError("Нет предыдущей вкладки для переключения")
+        current_handle = self.get_current_handle()
+        for i in range(1, len(handles)):
+            if handles[i] == current_handle:
+                return handles[i - 1]
+        raise RuntimeError("Не удалось найти предыдущую вкладку")
+
+    def switch_to_previous_window(self) -> None:
+        handle = self.get_previous_window()
+        self.switch_to_window(handle)
