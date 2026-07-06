@@ -45,6 +45,7 @@ def test_handles(driver: WebDriver, main_page: MainPage) -> None:
         f"Путь текущей вкладки: {tub_manager.get_current_path()}, ожидался /sample"
     logger.info("Создаём экземпляр страницы Sample page")
     sample = SamplePage()
+    logger.info("Проверяем, что открыта страница Sample page")
     assert sample.is_displayed(), "Страница Sample page не отобразилась"
 
     logger.info("Закрываем текущую вкладку")
@@ -62,3 +63,12 @@ def test_handles(driver: WebDriver, main_page: MainPage) -> None:
     links_page = LinksPage()
     logger.info("Проверяем, что открыта страница Links")
     assert links_page.is_displayed(), "Страница Links не отобразилась"
+
+    logger.info("Сохраняем текущие вкладки")
+    old_handles = tub_manager.get_all_handles()
+    logger.info("Нажимаем на ссылку Home")
+    links_page.click_home_link()
+    logger.info("Переключаемся на новую вкладку")
+    tub_manager.switch_to_new_window(old_handles)
+    logger.info("Проверяем, что открыта страница main page")
+    assert main_page.is_displayed(), "Страница main page не отобразилась"
