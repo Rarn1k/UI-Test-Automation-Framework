@@ -4,6 +4,7 @@ from selenium.webdriver.remote.webdriver import WebDriver
 
 from page_objects.browser_windows_page import BrowserWindowsPage
 from page_objects.left_menu_page import LeftMenuPage
+from page_objects.links_page import LinksPage
 from page_objects.main_page import MainPage
 from page_objects.sample_page import SamplePage
 from utils.tub_manager import TubManager
@@ -52,3 +53,12 @@ def test_handles(driver: WebDriver, main_page: MainPage) -> None:
     tub_manager.switch_to_window(browser_handle)
     logger.info("Проверяем, что открыта страница с формой Browser Windows")
     assert browser.is_displayed(), "Страница Browser Windows не отобразилась"
+
+    logger.info("В левом меню нажимаем на Elements")
+    left_menu.click_elements_button()
+    logger.info("В левом меню нажимаем Links")
+    left_menu.click_links()
+    logger.info("Создаём экземпляр страницы Links")
+    links_page = LinksPage()
+    logger.info("Проверяем, что открыта страница Links")
+    assert links_page.is_displayed(), "Страница Links не отобразилась"
