@@ -11,7 +11,7 @@ from web_driver.driver import Driver
 
 logger = logging.getLogger(__name__)
 
-class BaseElement(ABC):
+class   BaseElement(ABC):
     def __init__(self, locator: tuple[str, str], name: str) -> None:
         self._locator = locator
         self._name = name

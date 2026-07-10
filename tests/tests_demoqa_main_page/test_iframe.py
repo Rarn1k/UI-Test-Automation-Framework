@@ -31,26 +31,10 @@ def test_iframes(driver: WebDriver, main_page: MainPage) -> None:
     nested_frames = NestedFramesPage()
     logger.info("Проверяем, что открылась страница Nested Frames")
     assert nested_frames.is_displayed(), "Страница Nested Frames не отобразилась"
-    logger.info("Создаём экземпляр Iframe менеджера")
-    frame_manager = FrameManager()
-    logger.info("Переключаемся на родительский фрейм")
-    frame_manager.switch_to_frame(nested_frames.get_parent_frame())
-    logger.info("Создаём экземпляр страницы родительского фрейма")
-    parent_frame = ParentFramePage()
-    logger.info("Проверяем, что открылась страница родительского фрейма")
-    assert parent_frame.is_displayed(), "Страница parent_frame не отобразилась"
     logger.info("Проверяем, что присутствует надпись: Parent frame")
-    assert parent_frame.get_page_text() == "Parent frame", "Отсутствует надпись: Parent frame"
-    logger.info("Переключаемся на дочерний фрейм")
-    frame_manager.switch_to_frame(parent_frame.get_child_frame())
-    logger.info("Создаём экземпляр страницы дочернего фрейма")
-    child_frame = ChildIFramePage()
-    logger.info("Проверяем, что открылась страница дочернего фрейма")
-    assert child_frame.is_displayed(), "Страница child_frame не отобразилась"
+    assert nested_frames.get_parent_frame_text() == "Parent frame", "Отсутствует надпись: Parent frame"
     logger.info("Проверяем, что присутствует надпись: Child frame")
-    assert child_frame.get_page_text() == "Child Iframe", "Отсутствует надпись: Child frame"
-    logger.info("Переключаемся на обычную страницу")
-    frame_manager.switch_to_default()
+    assert nested_frames.get_child_frame_text() == "Child Iframe", "Отсутствует надпись: Child frame"
 
     logger.info("Нажимаем на ссылку Frames")
     left_menu.click_frames()
@@ -58,24 +42,10 @@ def test_iframes(driver: WebDriver, main_page: MainPage) -> None:
     frames = FramesPage()
     logger.info("Проверяем, что открылась страница Frames")
     assert frames.is_displayed(), "Страница Frames не отобразилась"
-    logger.info("Переключаемся на верхний фрейм")
-    frame_manager.switch_to_frame(frames.get_upper_frame())
-    logger.info("Создаём экземпляр страницы верхнего фрейма")
-    upper_frame = UpperFramePage()
-    logger.info("Проверяем, что открылась страница верхнего фрейма")
-    assert upper_frame.is_displayed(), "Страница upper_frame не отобразилась"
     logger.info("Получаем надпись со страницы верхнего фрейма")
-    upper_frame_text = upper_frame.get_page_text()
-    logger.info("Переключаемся на обычную страницу")
-    frame_manager.switch_to_default()
-    logger.info("Переключаемся на нижний фрейм")
-    frame_manager.switch_to_frame(frames.get_bottom_frame())
-    logger.info("Создаём экземпляр страницы нижнего фрейма")
-    bottom_frame = BottomFramePage()
-    logger.info("Проверяем, что открылась страница нижнего фрейма")
-    assert bottom_frame.is_displayed(), "Страница bottom_frame не отобразилась"
+    upper_frame_text = frames.get_upper_frame_text()
     logger.info("Получаем надпись со страницы нижнего фрейма")
-    bottom_frame_text = upper_frame.get_page_text()
+    bottom_frame_text = frames.get_bottom_frame_text()
     logger.info("Проверяем, что надпись из верхнего фрейма соответствует надписи из нижнего")
     assert upper_frame_text == bottom_frame_text, \
         f"Надпись из верхнего фрейма: {upper_frame_text} не соответствует надписи из нижнего: {bottom_frame_text}"
