@@ -3,12 +3,12 @@ from typing import Any, Generator
 import pytest
 from selenium.webdriver.remote.webdriver import WebDriver
 
-from utils.get_marker_path import GetMarkerPath
+from utils.get_project_path import ProjectPath
 from web_driver.driver import Driver
 
 import logging
 
-root = GetMarkerPath.get_marker_path()
+root = ProjectPath.get_root()
 log_path = root / "logs/test.log"
 log_path.parent.mkdir(parents=True, exist_ok=True)
 

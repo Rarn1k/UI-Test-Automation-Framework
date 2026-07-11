@@ -1,9 +1,9 @@
 from pathlib import Path
 
 
-class GetMarkerPath:
+class ProjectPath:
     @staticmethod
-    def get_marker_path(marker: str = "requirements.txt") -> Path:
+    def get_root(marker: str = "requirements.txt") -> Path:
         current = Path(__file__).resolve()
         for parent in current.parents:
             if (parent / marker).exists():
