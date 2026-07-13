@@ -1,7 +1,6 @@
 from selenium.webdriver.common.by import By
 
 from element_objects.button import Button
-from element_objects.href import Href
 from element_objects.label import Label
 from page_objects.base_page import BasePage
 
@@ -12,13 +11,13 @@ from utils.logger_manager import LoggerManager
 logger = logging.getLogger(__name__)
 
 class LeftMenuPage(BasePage):
-    __alerts_href = Href((By.XPATH, "//a[@href='/alerts']"), "alerts link")
-    __nested_frames_href = Href((By.XPATH, "//a[@href='/nestedframes']"), "nested frames link")
-    __frames_href = Href((By.XPATH, "//a[@href='/frames']"), "frames link")
-    __web_tables_href = Href((By.XPATH, "//a[@href='/webtables']"), "web tables link")
-    __browser_href = Href((By.XPATH, "//a[@href='/browser-windows']"), "browser windows link")
+    __alerts_href = Button((By.XPATH, "//a[@href='/alerts']"), "alerts link")
+    __nested_frames_href = Button((By.XPATH, "//a[@href='/nestedframes']"), "nested frames link")
+    __frames_href = Button((By.XPATH, "//a[@href='/frames']"), "frames link")
+    __web_tables_href = Button((By.XPATH, "//a[@href='/webtables']"), "web tables link")
+    __browser_href = Button((By.XPATH, "//a[@href='/browser-windows']"), "browser windows link")
     __elements_button = Button((By.XPATH, "//*[text()='Elements']"), "elements button")
-    __links_href = Href((By.XPATH, "//a[@href='/links']"), "links link")
+    __links_href = Button((By.XPATH, "//a[@href='/links']"), "links link")
 
     def __init__(self) -> None:
         super().__init__((By.CLASS_NAME, "left-pannel"), "Left Menu Page")

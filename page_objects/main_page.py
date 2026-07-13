@@ -2,7 +2,7 @@ import logging
 
 from selenium.webdriver.common.by import By
 
-from element_objects.href import Href
+from element_objects.button import Button
 from element_objects.label import Label
 from page_objects.base_page import BasePage
 from utils.config.config_manager import ConfigManager
@@ -12,8 +12,8 @@ logger = logging.getLogger(__name__)
 
 
 class MainPage(BasePage):
-    __alerts_href = Href((By.XPATH, "//a[@href='/alertsWindows']"), "alerts link")
-    __elements_href = Href((By.XPATH, "//a[@href='/elements']"), "elements link")
+    __alerts_href = Button((By.XPATH, "//a[@href='/alertsWindows']"), "alerts link")
+    __elements_href = Button((By.XPATH, "//a[@href='/elements']"), "elements link")
 
     def __init__(self) -> None:
         super().__init__((By.CLASS_NAME, "home-banner"), "Main Page")
