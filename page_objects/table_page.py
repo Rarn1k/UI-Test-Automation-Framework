@@ -59,5 +59,5 @@ class TablePage(BasePage):
         return data in self.get_all_data()
 
     def delete_row(self, row: WebElement):
-        logger.info(f"Удаляем строку{row}")
+        LoggerManager().get_logger().info(f"Удаляем строку{row}")
         self.__delete_row_button.find_element(row).click()
