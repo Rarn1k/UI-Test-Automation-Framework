@@ -7,9 +7,6 @@ from web_driver.driver import Driver
 
 
 class TubManager:
-    def __init__(self) -> None:
-        self._waiter = Waiter()
-
     @staticmethod
     def get_all_handles() -> list[str]:
         LoggerManager().get_logger().info("Получаем все вкладки")
@@ -20,9 +17,10 @@ class TubManager:
         LoggerManager().get_logger().info("Получаем текущую вкладку")
         return Driver().get_driver().current_window_handle
 
-    def get_current_url(self) -> str:
+    @staticmethod
+    def get_current_url() -> str:
         LoggerManager().get_logger().info("Получаем URL текущей вкладки")
-        self._waiter.wait_for_url_not_blank()
+        Waiter.wait_for_url_not_blank()
         return Driver().get_driver().current_url
 
     def get_current_path(self) -> str:
@@ -33,7 +31,7 @@ class TubManager:
         return path
 
     def get_new_window_opened(self, old_handles: list[str]) -> str:
-        self._waiter.wait_for_new_window(old_handles)
+        Waiter.wait_for_new_window(old_handles)
         LoggerManager().get_logger().info("Получаем новую вкладку")
         new_handles = self.get_all_handles()
         new_handle = (set(new_handles) - set(old_handles)).pop()

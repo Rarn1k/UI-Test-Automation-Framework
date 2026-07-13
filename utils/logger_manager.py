@@ -1,5 +1,6 @@
 import logging
-from utils.get_project_path import ProjectPath
+
+from utils.path_utils import PathUtils
 from utils.singleton_meta import SingletonMeta
 
 class LoggerManager(metaclass=SingletonMeta):
@@ -10,7 +11,7 @@ class LoggerManager(metaclass=SingletonMeta):
     def _setup_logger(self) -> None:
         self._logger.setLevel(logging.INFO)
 
-        log_path = ProjectPath.get_root() / "logs/test.log"
+        log_path = PathUtils.get_logs()
         log_path.parent.mkdir(parents=True, exist_ok=True)
 
         formatter = logging.Formatter(

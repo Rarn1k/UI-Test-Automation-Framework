@@ -3,24 +3,28 @@ from utils.waiter import Waiter
 
 
 class AlertManager:
-    def __init__(self) -> None:
-        self._waiter = Waiter()
+    @staticmethod
+    def get_alert_text() -> str:
         LoggerManager().get_logger().info("Ждём переключения на алерт")
-        self._instance = self._waiter.wait_for_alert()
-
-    def get_alert_text(self) -> str:
+        alert = Waiter.wait_for_alert()
         LoggerManager().get_logger().info(f"Получаем текст алерта")
-        text = self._instance.text
-        return text
+        return alert.text
 
-    def accept_alert(self) -> None:
+    @staticmethod
+    def accept_alert() -> None:
+        LoggerManager().get_logger().info("Ждём переключения на алерт")
+        alert = Waiter.wait_for_alert()
         LoggerManager().get_logger().info(f"Принимаем алерт")
-        self._instance.accept()
+        alert.accept()
 
-    def wait_alert_closed(self) -> bool:
+    @staticmethod
+    def wait_alert_closed() -> bool:
         LoggerManager().get_logger().info("Ждём, пока алерт закроется")
-        return self._waiter.wait_until_alert_closed()
+        return Waiter.wait_until_alert_closed()
 
-    def send_keys(self, text: str) -> None:
+    @staticmethod
+    def send_keys(text: str) -> None:
+        LoggerManager().get_logger().info("Ждём переключения на алерт")
+        alert = Waiter.wait_for_alert()
         LoggerManager().get_logger().info(f"Вводим текст в алерт: '{text}'")
-        self._instance.send_keys(text)
+        alert.send_keys(text)
