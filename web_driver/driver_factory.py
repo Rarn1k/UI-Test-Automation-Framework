@@ -1,13 +1,10 @@
 from typing import ClassVar, Type
 
 from utils.config.config_manager import ConfigManager
+from utils.logger_manager import LoggerManager
 from web_driver.base_driver import BaseDriver
 from web_driver.chrome_driver import ChromeDriver
 from web_driver.firefox_driver import FirefoxDriver
-
-import logging
-
-logger = logging.getLogger(__name__)
 
 
 class DriverFactory:
@@ -20,7 +17,7 @@ class DriverFactory:
     def create_driver(cls) -> BaseDriver:
         driver_name = ConfigManager().instance().browser.lower()
         if driver_name not in cls._drivers:
-            logger.error(f"Неизвестный браузер: {driver_name}")
+            LoggerManager().get_logger().error(f"Неизвестный браузер: {driver_name}")
             raise ValueError(f"Неизвестный браузер: {driver_name}")
-        logger.debug(f"Фабрика создаёт драйвер браузера {driver_name}")
+        LoggerManager().get_logger().debug(f"Фабрика создаёт драйвер браузера {driver_name}")
         return cls._drivers[driver_name]()
