@@ -1,9 +1,5 @@
-import logging
-
 from element_objects.base_element import BaseElement
 from utils.logger_manager import LoggerManager
-
-logger = logging.getLogger(__name__)
 
 
 class Input(BaseElement):

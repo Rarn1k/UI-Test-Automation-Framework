@@ -1,5 +1,3 @@
-import logging
-
 from selenium.webdriver.common.by import By
 
 from element_objects.label import Label
@@ -9,7 +7,6 @@ from page_objects.nested_frames.parent_frame_page import ParentFramePage
 from utils.frame_manager import FrameManager
 from utils.logger_manager import LoggerManager
 
-logger = logging.getLogger(__name__)
 
 class NestedFramesPage(BasePage):
     __parent_frame = Label((By.ID, "frame1"), "Parent frame")
@@ -35,4 +32,3 @@ class NestedFramesPage(BasePage):
             with FrameManager.frame_context(self.__child_frame):
                 child_page = ChildIFramePage()
                 return child_page.get_page_text()
-

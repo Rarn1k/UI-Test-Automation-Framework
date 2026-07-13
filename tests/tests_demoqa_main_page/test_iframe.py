@@ -1,16 +1,9 @@
-import logging
-
 from selenium.webdriver.remote.webdriver import WebDriver
 
-from page_objects.frames.bottom_frame_page import BottomFramePage
 from page_objects.frames.frames_page import FramesPage
-from page_objects.frames.upper_frame_page import UpperFramePage
 from page_objects.left_menu_page import LeftMenuPage
 from page_objects.main_page import MainPage
-from page_objects.nested_frames.child_iframe import ChildIFramePage
 from page_objects.nested_frames.nested_frames_page import NestedFramesPage
-from page_objects.nested_frames.parent_frame_page import ParentFramePage
-from utils.frame_manager import FrameManager
 from utils.logger_manager import LoggerManager
 
 

@@ -1,5 +1,3 @@
-import logging
-
 from selenium.webdriver.remote.webdriver import WebDriver
 
 from page_objects.browser_windows_page import BrowserWindowsPage
@@ -9,8 +7,6 @@ from page_objects.main_page import MainPage
 from page_objects.sample_page import SamplePage
 from utils.logger_manager import LoggerManager
 from utils.tub_manager import TubManager
-
-logger = logging.getLogger(__name__)
 
 
 def test_handles(driver: WebDriver, main_page: MainPage) -> None:

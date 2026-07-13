@@ -1,5 +1,4 @@
 from abc import ABC
-from logging import Logger
 
 from selenium.common import ElementClickInterceptedException
 from selenium.webdriver.remote.webelement import WebElement
@@ -7,11 +6,8 @@ from selenium.webdriver.remote.webelement import WebElement
 from utils.logger_manager import LoggerManager
 from utils.waiter import Waiter
 
-import logging
-
 from web_driver.driver import Driver
 
-logger = logging.getLogger(__name__)
 
 class BaseElement(ABC):
     def __init__(self, locator: tuple[str, str], name: str) -> None:

@@ -4,14 +4,10 @@ from page_objects.alerts_page import AlertsPage
 from page_objects.left_menu_page import LeftMenuPage
 from page_objects.main_page import MainPage
 
-import logging
-
 from utils.alert_manager import AlertManager
 from utils.data.data_manager import DataManager
 from utils.generate_random_string import generate_random_string
 from utils.logger_manager import LoggerManager
-
-logger = logging.getLogger(__name__)
 
 
 def test_alerts(driver: WebDriver, main_page: MainPage) -> None:
@@ -59,7 +55,7 @@ def test_alerts(driver: WebDriver, main_page: MainPage) -> None:
     assert confirm_alert.wait_alert_closed(), "Confirm алерт не закрылся"
     expected_confirm_result_text = DataManager().instance().confirm_result_text
     LoggerManager().get_logger().info(f"Проверяем, что появилась надпись {expected_confirm_result_text}")
-    assert alerts.find_confirm_text() == expected_confirm_result_text,\
+    assert alerts.find_confirm_text() == expected_confirm_result_text, \
         f"Не появилась надпись {expected_confirm_result_text}"
 
     LoggerManager().get_logger().info("Нажимаем на кнопку prompt alert")
@@ -80,5 +76,5 @@ def test_alerts(driver: WebDriver, main_page: MainPage) -> None:
     assert prompt_alert.wait_alert_closed(), "Prompt алерт не закрылся"
     expected_prompt_result_text = DataManager().instance().prompt_result_text + random_string
     LoggerManager().get_logger().info(f"Проверяем, что появилась надпись {expected_prompt_result_text}")
-    assert alerts.find_prompt_text() == expected_prompt_result_text,\
+    assert alerts.find_prompt_text() == expected_prompt_result_text, \
         f"Не появилась надпись {expected_prompt_result_text}"

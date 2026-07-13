@@ -1,5 +1,3 @@
-import logging
-
 from selenium.webdriver.common.by import By
 
 from element_objects.label import Label
@@ -8,8 +6,6 @@ from page_objects.frames.bottom_frame_page import BottomFramePage
 from page_objects.frames.upper_frame_page import UpperFramePage
 from utils.frame_manager import FrameManager
 from utils.logger_manager import LoggerManager
-
-logger = logging.getLogger(__name__)
 
 
 class FramesPage(BasePage):

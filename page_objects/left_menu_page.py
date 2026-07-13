@@ -4,11 +4,8 @@ from element_objects.button import Button
 from element_objects.label import Label
 from page_objects.base_page import BasePage
 
-import logging
-
 from utils.logger_manager import LoggerManager
 
-logger = logging.getLogger(__name__)
 
 class LeftMenuPage(BasePage):
     __alerts_href = Button((By.XPATH, "//a[@href='/alerts']"), "alerts link")

@@ -3,12 +3,9 @@ from selenium.webdriver.remote.webelement import WebElement
 
 from element_objects.label import Label
 from page_objects.base_page import BasePage
-import logging
-
 from utils.data.table_model import TableModel
 from utils.logger_manager import LoggerManager
 
-logger = logging.getLogger(__name__)
 
 class TablePage(BasePage):
     __table_header = Label((By.XPATH, "//thead//th"), "Table header")

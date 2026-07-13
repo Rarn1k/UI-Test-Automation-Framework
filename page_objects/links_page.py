@@ -1,13 +1,9 @@
-import logging
-
 from selenium.webdriver.common.by import By
 
 from element_objects.button import Button
 from element_objects.label import Label
 from page_objects.base_page import BasePage
 from utils.logger_manager import LoggerManager
-
-logger = logging.getLogger(__name__)
 
 
 class LinksPage(BasePage):

@@ -1,13 +1,9 @@
 import pytest
 
 from page_objects.main_page import MainPage
-
-import logging
-
 from utils.logger_manager import LoggerManager
 from web_driver.driver import Driver
 
-logger = logging.getLogger(__name__)
 
 @pytest.fixture
 def main_page() -> MainPage:
