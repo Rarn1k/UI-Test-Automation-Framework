@@ -1,8 +1,10 @@
 from abc import ABC
+from logging import Logger
 
 from selenium.common import ElementClickInterceptedException
 from selenium.webdriver.remote.webelement import WebElement
 
+from utils.logger_manager import LoggerManager
 from utils.waiter import Waiter
 
 import logging
@@ -11,7 +13,7 @@ from web_driver.driver import Driver
 
 logger = logging.getLogger(__name__)
 
-class   BaseElement(ABC):
+class BaseElement(ABC):
     def __init__(self, locator: tuple[str, str], name: str) -> None:
         self._locator = locator
         self._name = name
@@ -19,16 +21,16 @@ class   BaseElement(ABC):
 
     def find_element(self, parent: WebElement | None = None) -> WebElement:
         context = parent if parent else "всей страницы"
-        logger.info(f"Ищем элемент {self._name} по локатору {self._locator} внутри {context}")
+        LoggerManager().get_logger().info(f"Ищем элемент {self._name} по локатору {self._locator} внутри {context}")
         return self._waiter.wait_for_presence(self._locator, parent)
 
     def find_elements(self, parent: WebElement | None = None) -> list[WebElement]:
         context = parent if parent else "всей страницы"
-        logger.info(f"Ищем элементы {self._name} по локатору {self._locator} внутри {context}")
+        LoggerManager().get_logger().info(f"Ищем элементы {self._name} по локатору {self._locator} внутри {context}")
         return self._waiter.wait_for_all_present(self._locator, parent)
 
     def click(self) -> None:
-        logger.info(f"Нажимаем на элемент {self._name}")
+        LoggerManager().get_logger().info(f"Нажимаем на элемент {self._name}")
         element = self._waiter.wait_for_clickable(self._locator)
         try:
             element.click()

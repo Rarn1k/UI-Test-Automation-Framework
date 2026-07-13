@@ -7,6 +7,8 @@ from page_objects.base_page import BasePage
 
 import logging
 
+from utils.logger_manager import LoggerManager
+
 logger = logging.getLogger(__name__)
 
 class LeftMenuPage(BasePage):
@@ -22,33 +24,33 @@ class LeftMenuPage(BasePage):
         super().__init__((By.CLASS_NAME, "left-pannel"), "Left Menu Page")
 
     def is_displayed(self) -> bool:
-        logger.info(f"Проверяем, загружена ли страница {self._name}")
+        LoggerManager().get_logger().info(f"Проверяем, загружена ли страница {self._name}")
         return Label(self._locator, self._name).find_element().is_displayed()
 
     def click_alerts(self) -> None:
-        logger.info("Нажимаем на ссылку alerts")
+        LoggerManager().get_logger().info("Нажимаем на ссылку alerts")
         self.__alerts_href.click()
 
     def click_nested_frames(self) -> None:
-        logger.info("Нажимаем на ссылку nested frames")
+        LoggerManager().get_logger().info("Нажимаем на ссылку nested frames")
         self.__nested_frames_href.click()
 
     def click_frames(self) -> None:
-        logger.info("Нажимаем на ссылку frames")
+        LoggerManager().get_logger().info("Нажимаем на ссылку frames")
         self.__frames_href.click()
 
     def click_web_tables(self) -> None:
-        logger.info("Нажимаем на ссылку web tables")
+        LoggerManager().get_logger().info("Нажимаем на ссылку web tables")
         self.__web_tables_href.click()
 
     def click_browser_windows(self) -> None:
-        logger.info("Нажимаем на ссылку browser windows")
+        LoggerManager().get_logger().info("Нажимаем на ссылку browser windows")
         self.__browser_href.click()
 
     def click_elements_button(self) -> None:
-        logger.info("Нажимаем на кнопку elements")
+        LoggerManager().get_logger().info("Нажимаем на кнопку elements")
         self.__elements_button.click()
 
     def click_links(self) -> None:
-        logger.info("Нажимаем на ссылку links")
+        LoggerManager().get_logger().info("Нажимаем на ссылку links")
         self.__links_href.click()

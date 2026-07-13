@@ -1,6 +1,7 @@
 import logging
 
 from element_objects.base_element import BaseElement
+from utils.logger_manager import LoggerManager
 
 logger = logging.getLogger(__name__)
 
@@ -10,7 +11,7 @@ class Input(BaseElement):
         super().__init__(locator, name)
 
     def set_value(self, text: str) -> None:
-        logger.info(f"Ввод текста '{text}' в поле '{self._name}'")
+        LoggerManager().get_logger().info(f"Ввод текста '{text}' в поле '{self._name}'")
         element = self._waiter.wait_for_clickable(self._locator)
         element.clear()
         element.send_keys(text)

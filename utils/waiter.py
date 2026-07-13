@@ -9,11 +9,8 @@ from selenium.common.exceptions import TimeoutException, NoAlertPresentException
 
 from utils.config.config_manager import ConfigManager
 
-import logging
-
+from utils.logger_manager import LoggerManager
 from web_driver.driver import Driver
-
-logger = logging.getLogger(__name__)
 
 T = TypeVar("T")
 
@@ -30,11 +27,11 @@ class Waiter:
 
     def _until(self, condition: Callable, message: str = "", context=None) -> T:
         try:
-            logger.info(f"Ждём пока выполнится условие: {condition}")
+            LoggerManager().get_logger().info(f"Ждём пока выполнится условие: {condition}")
             result = self._get_wait(context).until(condition)
             return result
         except TimeoutException as e:
-            logger.error(f"Таймаут ожидания: {message or e}")
+            LoggerManager().get_logger().error(f"Таймаут ожидания: {message or e}")
             raise
 
     def wait_for_presence(self, locator: tuple[str, str], parent: WebElement | None = None) -> WebElement:

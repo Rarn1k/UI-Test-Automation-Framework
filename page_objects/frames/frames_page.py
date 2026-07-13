@@ -7,6 +7,7 @@ from page_objects.base_page import BasePage
 from page_objects.frames.bottom_frame_page import BottomFramePage
 from page_objects.frames.upper_frame_page import UpperFramePage
 from utils.frame_manager import FrameManager
+from utils.logger_manager import LoggerManager
 
 logger = logging.getLogger(__name__)
 
@@ -19,17 +20,17 @@ class FramesPage(BasePage):
         super().__init__((By.XPATH, "//*[@class='text-center' and text()='Frames']"), "Frames page")
 
     def is_displayed(self) -> bool:
-        logger.info(f"Проверяем, загружена ли страница {self._name}")
+        LoggerManager().get_logger().info(f"Проверяем, загружена ли страница {self._name}")
         return Label(self._locator, self._name).find_element().is_displayed()
 
     def get_upper_frame_text(self) -> str:
         with FrameManager.frame_context(self.__upper_frame):
-            logger.info("Получаем верхний фрейм")
+            LoggerManager().get_logger().info("Получаем верхний фрейм")
             upper_page = UpperFramePage()
             return upper_page.get_page_text()
 
     def get_bottom_frame_text(self) -> str:
         with FrameManager.frame_context(self.__bottom_frame):
-            logger.info("Получаем нижний фрейм")
+            LoggerManager().get_logger().info("Получаем нижний фрейм")
             bottom_page = BottomFramePage()
             return bottom_page.get_page_text()

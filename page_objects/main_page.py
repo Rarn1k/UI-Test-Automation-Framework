@@ -6,6 +6,7 @@ from element_objects.href import Href
 from element_objects.label import Label
 from page_objects.base_page import BasePage
 from utils.config.config_manager import ConfigManager
+from utils.logger_manager import LoggerManager
 
 logger = logging.getLogger(__name__)
 
@@ -19,13 +20,13 @@ class MainPage(BasePage):
         self.url = ConfigManager().instance().demoqa_url
 
     def is_displayed(self) -> bool:
-        logger.info(f"Проверяем, загружена ли страница {self._name}")
+        LoggerManager().get_logger().info(f"Проверяем, загружена ли страница {self._name}")
         return Label(self._locator, self._name).find_element().is_displayed()
 
     def click_alerts_windows(self) -> None:
-        logger.info("Нажимаем на ссылку alerts")
+        LoggerManager().get_logger().info("Нажимаем на ссылку alerts")
         self.__alerts_href.click()
 
     def click_elements(self) -> None:
-        logger.info("Нажимаем на ссылку elements")
+        LoggerManager().get_logger().info("Нажимаем на ссылку elements")
         self.__elements_href.click()
