@@ -27,26 +27,25 @@ def test_handles(driver: WebDriver, main_page: MainPage) -> None:
     assert browser.is_displayed(), "Страница Browser Windows не отобразилась"
 
     LoggerManager().info("Создаём экземпляр Tub Manager")
-    tab_manager = TabManager()
     LoggerManager().info("Сохраняем текущую вкладку")
-    browser_handle = tab_manager.get_current_handle()
+    browser_handle = TabManager.get_current_handle()
     LoggerManager().info("Нажимаем на кнопку New Tab")
     browser.click_new_tab()
     LoggerManager().info("Проверяем, что открыта новая вкладка /sample со страницей sample page")
     LoggerManager().info("Переключаемся на новую вкладку")
-    tab_manager.switch_to_new_window(1)
+    TabManager.switch_to_new_window(1)
     LoggerManager().info("Проверяем, что путь текущей вкладки - /sample")
-    assert tab_manager.get_current_path() == "/sample", \
-        f"Путь текущей вкладки: {tab_manager.get_current_path()}, ожидался /sample"
+    assert TabManager.get_current_path() == "/sample", \
+        f"Путь текущей вкладки: {TabManager.get_current_path()}, ожидался /sample"
     LoggerManager().info("Создаём экземпляр страницы Sample page")
     sample = SamplePage()
     LoggerManager().info("Проверяем, что открыта страница Sample page")
     assert sample.is_displayed(), "Страница Sample page не отобразилась"
 
     LoggerManager().info("Закрываем текущую вкладку")
-    tab_manager.close_current_window()
+    TabManager.close_current_window()
     LoggerManager().info("Переключаемся на вкладку страницы Browser Windows")
-    tab_manager.switch_to_window(browser_handle)
+    TabManager.switch_to_window(browser_handle)
     LoggerManager().info("Проверяем, что открыта страница с формой Browser Windows")
     assert browser.is_displayed(), "Страница Browser Windows не отобразилась"
 
@@ -63,11 +62,11 @@ def test_handles(driver: WebDriver, main_page: MainPage) -> None:
     LoggerManager().info("Нажимаем на ссылку Home")
     links_page.click_home_link()
     LoggerManager().info("Переключаемся на новую вкладку")
-    tab_manager.switch_to_new_window(1)
+    TabManager.switch_to_new_window(1)
     LoggerManager().info("Проверяем, что открыта страница main page")
     assert main_page.is_displayed(), "Страница main page не отобразилась"
 
     LoggerManager().info("Переключаемся на прошлую вкладку")
-    tab_manager.switch_to_previous_window()
+    TabManager.switch_to_previous_window()
     LoggerManager().info("Проверяем, что открыта страница Links page")
     assert links_page.is_displayed(), "Страница Links page не отобразилась"
