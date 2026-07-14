@@ -1,5 +1,4 @@
 from selenium import webdriver
-from selenium.webdriver.common.options import ArgOptions
 
 from utils.config.config_manager import ConfigManager
 from utils.logger_manager import LoggerManager
@@ -16,7 +15,7 @@ class ChromeDriver(BaseDriver):
         self._driver = webdriver.Chrome(options=options)
 
     @staticmethod
-    def _set_options() -> ArgOptions:
+    def _set_options() -> webdriver.ChromeOptions:
         options = webdriver.ChromeOptions()
         for arg in ConfigManager().instance().chrome_driver_args:
             options.add_argument(arg)

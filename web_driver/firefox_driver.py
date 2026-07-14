@@ -1,5 +1,4 @@
 from selenium import webdriver
-from selenium.webdriver.common.options import ArgOptions
 
 from utils.config.config_manager import ConfigManager
 from utils.logger_manager import LoggerManager
@@ -14,7 +13,7 @@ class FirefoxDriver(BaseDriver):
         self._driver = webdriver.Firefox(options=options)
 
     @staticmethod
-    def _set_options() -> ArgOptions:
+    def _set_options() -> webdriver.FirefoxOptions:
         options = webdriver.FirefoxOptions()
         for arg in ConfigManager().instance().firefox_driver_args:
             options.add_argument(arg)
