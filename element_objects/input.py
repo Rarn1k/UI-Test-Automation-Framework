@@ -1,5 +1,6 @@
 from element_objects.base_element import BaseElement
 from utils.logger_manager import LoggerManager
+from utils.waiter import Waiter
 
 
 class Input(BaseElement):
@@ -8,6 +9,6 @@ class Input(BaseElement):
 
     def set_value(self, text: str) -> None:
         LoggerManager().info(f"Ввод текста '{text}' в поле '{self._name}'")
-        element = self._waiter.wait_for_presence(self._locator)
+        element = Waiter.wait_for_presence(self._locator)
         element.clear()
         element.send_keys(text)
