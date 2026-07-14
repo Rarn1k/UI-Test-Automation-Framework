@@ -8,12 +8,12 @@ from page_objects.registration_form_page import RegistrationFormPage
 from page_objects.table_page import TablePage
 from page_objects.web_tables_page import WebTablesPage
 from utils.data.data_manager import DataManager
-from utils.data.table_model import TableModel
+from utils.data.user_model import User
 from utils.logger_manager import LoggerManager
 
 
 @pytest.mark.parametrize("user", DataManager().instance().table_users)
-def test_table(driver: WebDriver, main_page: MainPage, user: TableModel) -> None:
+def test_table(driver: WebDriver, main_page: MainPage, user: User) -> None:
     LoggerManager().info("Проверяем, что главная страница не отобразилась")
     assert main_page.is_displayed(), "Главная страница не отобразилась"
 

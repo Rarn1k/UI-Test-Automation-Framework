@@ -4,7 +4,7 @@ from element_objects.button import Button
 from element_objects.input import Input
 from element_objects.label import Label
 from page_objects.base_page import BasePage
-from utils.data.table_model import TableModel
+from utils.data.user_model import User
 from utils.logger_manager import LoggerManager
 
 
@@ -21,7 +21,7 @@ class RegistrationFormPage(BasePage):
     def __init__(self) -> None:
         super().__init__((By.ID, "registration-form-modal"), "Registration form")
 
-    def set_all_inputs(self, user: TableModel) -> None:
+    def set_all_inputs(self, user: User) -> None:
         self.set_first_name(user.first_name)
         self.set_last_name(user.last_name)
         self.set_email(user.email)
