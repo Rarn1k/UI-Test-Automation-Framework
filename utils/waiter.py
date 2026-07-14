@@ -26,11 +26,11 @@ class Waiter:
     @classmethod
     def _until(cls, condition: Callable, message: str = "", context=None) -> T:
         try:
-            LoggerManager().get_logger().info(f"Ждём пока выполнится условие: {condition}")
+            LoggerManager().info(f"Ждём пока выполнится условие: {condition}")
             result = cls._get_wait(context).until(condition)
             return result
         except TimeoutException as e:
-            LoggerManager().get_logger().error(f"Таймаут ожидания: {message or e}")
+            LoggerManager().error(f"Таймаут ожидания: {message or e}")
             raise
 
     @classmethod

@@ -15,5 +15,5 @@ class ParentFramePage(BasePage):
         return Label(self._locator, self._name).find_element().is_displayed()
 
     def get_page_text(self) -> str:
-        LoggerManager().get_logger().info(f"Получаем текст страницы {self._name}")
+        LoggerManager().info(f"Получаем текст страницы {self._name}")
         return self.__page_text.find_element().text.strip()

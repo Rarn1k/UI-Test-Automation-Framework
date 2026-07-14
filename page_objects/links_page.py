@@ -13,9 +13,9 @@ class LinksPage(BasePage):
         super().__init__((By.ID, "linkWrapper"), "Links page")
 
     def is_displayed(self) -> bool:
-        LoggerManager().get_logger().info(f"Проверяем, загружена ли страница {self._name}")
+        LoggerManager().info(f"Проверяем, загружена ли страница {self._name}")
         return Label(self._locator, self._name).find_element().is_displayed()
 
     def click_home_link(self) -> None:
-        LoggerManager().get_logger().info("Нажимаем на ссылку открытия домашней страницы")
+        LoggerManager().info("Нажимаем на ссылку открытия домашней страницы")
         self.__home_href.click()

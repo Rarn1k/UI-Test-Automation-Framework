@@ -17,17 +17,17 @@ class NestedFramesPage(BasePage):
                          "Nested frames page")
 
     def is_displayed(self) -> bool:
-        LoggerManager().get_logger().info(f"Проверяем, загружена ли страница {self._name}")
+        LoggerManager().info(f"Проверяем, загружена ли страница {self._name}")
         return Label(self._locator, self._name).find_element().is_displayed()
 
     def get_parent_frame_text(self) -> str:
-        LoggerManager().get_logger().info(f"Получаем текст родительского фрейма")
+        LoggerManager().info(f"Получаем текст родительского фрейма")
         with FrameManager.frame_context(self.__parent_frame):
             parent_page = ParentFramePage()
             return parent_page.get_page_text()
 
     def get_child_frame_text(self) -> str:
-        LoggerManager().get_logger().info(f"Получаем текст дочернего фрейма")
+        LoggerManager().info(f"Получаем текст дочернего фрейма")
         with FrameManager.frame_context(self.__parent_frame):
             with FrameManager.frame_context(self.__child_frame):
                 child_page = ChildIFramePage()

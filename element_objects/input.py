@@ -7,7 +7,7 @@ class Input(BaseElement):
         super().__init__(locator, name)
 
     def set_value(self, text: str) -> None:
-        LoggerManager().get_logger().info(f"Ввод текста '{text}' в поле '{self._name}'")
+        LoggerManager().info(f"Ввод текста '{text}' в поле '{self._name}'")
         element = self._waiter.wait_for_presence(self._locator)
         element.clear()
         element.send_keys(text)

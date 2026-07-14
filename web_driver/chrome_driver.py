@@ -12,7 +12,7 @@ class ChromeDriver(BaseDriver):
     def __init__(self) -> None:
         super().__init__()
         options = self._set_options()
-        LoggerManager().get_logger().info("Создаём драйвер Chrome")
+        LoggerManager().info("Создаём драйвер Chrome")
         self._driver = webdriver.Chrome(options=options)
 
     @staticmethod

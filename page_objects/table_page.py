@@ -17,15 +17,15 @@ class TablePage(BasePage):
         super().__init__((By.XPATH, "//table[contains(@class, 'table')]"), "Table page")
 
     def is_displayed(self) -> bool:
-        LoggerManager().get_logger().info(f"Проверяем, загружена ли страница таблицы {self._name}")
+        LoggerManager().info(f"Проверяем, загружена ли страница таблицы {self._name}")
         return Label(self._locator, self._name).find_element().is_displayed()
 
     def get_rows(self) -> list[WebElement]:
-        LoggerManager().get_logger().info("Ищем строки таблицы")
+        LoggerManager().info("Ищем строки таблицы")
         return self.__table_row.find_elements()
 
     def _parse_row_to_model(self, row: WebElement, headers_by_index: dict) -> TableModel:
-        LoggerManager().get_logger().info("Преобразуем строку таблицы в объект TableModel.")
+        LoggerManager().info("Преобразуем строку таблицы в объект TableModel.")
         cells_texts = self.__table_cell.get_texts(row)
         return TableModel(
             first_name=cells_texts[headers_by_index["First Name"]],
@@ -40,24 +40,24 @@ class TablePage(BasePage):
         return {header: idx for idx, header in enumerate(self.__table_header.get_texts())}
 
     def get_all_data(self) -> list[TableModel]:
-        LoggerManager().get_logger().info("Собираем всю информацию с таблицы")
+        LoggerManager().info("Собираем всю информацию с таблицы")
         rows = self.get_rows()
         return [self._parse_row_to_model(row, self._get_headers_by_index()) for row in rows]
 
     def find_row_by_data(self, data: TableModel) -> WebElement | None:
-        LoggerManager().get_logger().info(f"Ищем строку по данным: {data}")
+        LoggerManager().info(f"Ищем строку по данным: {data}")
         rows = self.get_rows()
         for row in rows:
             model = self._parse_row_to_model(row, self._get_headers_by_index())
             if model == data:
                 return row
-        LoggerManager().get_logger().warning(f"Строка с данными {data} не найдена")
+        LoggerManager().warning(f"Строка с данными {data} не найдена")
         return None
 
     def is_data_in_table(self, data: TableModel) -> bool:
-        LoggerManager().get_logger().info(f"Проверяем, что {data} есть в таблице")
+        LoggerManager().info(f"Проверяем, что {data} есть в таблице")
         return data in self.get_all_data()
 
     def delete_row(self, row: WebElement):
-        LoggerManager().get_logger().info(f"Удаляем строку{row}")
+        LoggerManager().info(f"Удаляем строку{row}")
         self.__delete_row_button.find_element(row).click()

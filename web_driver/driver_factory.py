@@ -17,7 +17,7 @@ class DriverFactory:
     def create_driver(cls) -> BaseDriver:
         driver_name = ConfigManager().instance().browser.lower()
         if driver_name not in cls._drivers:
-            LoggerManager().get_logger().error(f"Неизвестный браузер: {driver_name}")
+            LoggerManager().error(f"Неизвестный браузер: {driver_name}")
             raise ValueError(f"Неизвестный браузер: {driver_name}")
-        LoggerManager().get_logger().debug(f"Фабрика создаёт драйвер браузера {driver_name}")
+        LoggerManager().debug(f"Фабрика создаёт драйвер браузера {driver_name}")
         return cls._drivers[driver_name]()

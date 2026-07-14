@@ -10,5 +10,5 @@ class SamplePage(BasePage):
         super().__init__((By.ID, "sampleHeading"), "Sample page")
 
     def is_displayed(self) -> bool:
-        LoggerManager().get_logger().info(f"Проверяем, загружена ли страница {self._name}")
+        LoggerManager().info(f"Проверяем, загружена ли страница {self._name}")
         return Label(self._locator, self._name).find_element().is_displayed()

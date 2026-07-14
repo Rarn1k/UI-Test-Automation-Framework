@@ -14,52 +14,52 @@ from utils.logger_manager import LoggerManager
 
 @pytest.mark.parametrize("user", DataManager().instance().table_users)
 def test_table(driver: WebDriver, main_page: MainPage, user: TableModel) -> None:
-    LoggerManager().get_logger().info("Проверяем, что главная страница не отобразилась")
+    LoggerManager().info("Проверяем, что главная страница не отобразилась")
     assert main_page.is_displayed(), "Главная страница не отобразилась"
 
-    LoggerManager().get_logger().info("Нажимаем на кнопку Elements")
+    LoggerManager().info("Нажимаем на кнопку Elements")
     main_page.click_elements()
-    LoggerManager().get_logger().info("Создаём экземпляр страницы левого меню")
+    LoggerManager().info("Создаём экземпляр страницы левого меню")
     left_menu = LeftMenuPage()
-    LoggerManager().get_logger().info("Проверяем, что открылось левое меню")
+    LoggerManager().info("Проверяем, что открылось левое меню")
     assert left_menu.is_displayed(), "Левое меню не отобразилось"
-    LoggerManager().get_logger().info("Нажимаем на ссылку Web Tables")
+    LoggerManager().info("Нажимаем на ссылку Web Tables")
     left_menu.click_web_tables()
-    LoggerManager().get_logger().info("Создаём экземпляр страницы Web Tables")
+    LoggerManager().info("Создаём экземпляр страницы Web Tables")
     web_tables_page = WebTablesPage()
-    LoggerManager().get_logger().info("Проверяем, что открылась страница Web Tables")
+    LoggerManager().info("Проверяем, что открылась страница Web Tables")
     assert web_tables_page.is_displayed(), "Страница Web Tables не отобразилась"
 
-    LoggerManager().get_logger().info("Нажимаем на кнопку добавления новой записи")
+    LoggerManager().info("Нажимаем на кнопку добавления новой записи")
     web_tables_page.click_add_new_record()
-    LoggerManager().get_logger().info("Создаём экземпляр страницы формы регистрации")
+    LoggerManager().info("Создаём экземпляр страницы формы регистрации")
     registration = RegistrationFormPage()
-    LoggerManager().get_logger().info("Проверяем, что открылась страница формы регистрации")
+    LoggerManager().info("Проверяем, что открылась страница формы регистрации")
     assert registration.is_displayed(), "Страница формы регистрации не отобразилась"
 
-    LoggerManager().get_logger().info(f"Вводим все данные пользователя {user}")
+    LoggerManager().info(f"Вводим все данные пользователя {user}")
     registration.set_all_inputs(user)
-    LoggerManager().get_logger().info("Нажимаем кнопку Submit")
+    LoggerManager().info("Нажимаем кнопку Submit")
     registration.click_submit()
-    LoggerManager().get_logger().info("Ожидаем, что страница форма регистрации закрылась")
+    LoggerManager().info("Ожидаем, что страница форма регистрации закрылась")
     assert registration.is_not_displayed(), "Страница формы регистрации не закрылась"
-    LoggerManager().get_logger().info("Создаём экземпляр страницы таблицы")
+    LoggerManager().info("Создаём экземпляр страницы таблицы")
     table = TablePage()
-    LoggerManager().get_logger().info("Проверяем, что таблица появилась")
+    LoggerManager().info("Проверяем, что таблица появилась")
     assert table.is_displayed(), "Таблица не отобразилась"
-    LoggerManager().get_logger().info(f"Проверяем, что данные пользователя {user} появились в таблице")
-    LoggerManager().get_logger().info(f"{table.get_all_data()}")
+    LoggerManager().info(f"Проверяем, что данные пользователя {user} появились в таблице")
+    LoggerManager().info(f"{table.get_all_data()}")
     assert table.is_data_in_table(user), f"Данные пользователя {user} не появились в таблице"
 
-    LoggerManager().get_logger().info("Получаем количество записей до удаления")
+    LoggerManager().info("Получаем количество записей до удаления")
     row_count_before = len(table.get_rows())
-    LoggerManager().get_logger().info(f"Получаем строку с пользователем {user}")
+    LoggerManager().info(f"Получаем строку с пользователем {user}")
     user_row = table.find_row_by_data(user)
-    LoggerManager().get_logger().info(f"Нажимаем кнопку Delete в строке пользователя {user}")
+    LoggerManager().info(f"Нажимаем кнопку Delete в строке пользователя {user}")
     table.delete_row(user_row)
-    LoggerManager().get_logger().info("Получаем количество записей после удаления")
+    LoggerManager().info("Получаем количество записей после удаления")
     row_count_after = len(table.get_rows())
-    LoggerManager().get_logger().info("Проверяем, что количество записей в таблице изменилось")
+    LoggerManager().info("Проверяем, что количество записей в таблице изменилось")
     assert row_count_before != row_count_after, f"Количество записей в таблице не изменилось: {row_count_before}"
-    LoggerManager().get_logger().info(f"Проверяем, что пользователь {user} удалился из таблицы")
+    LoggerManager().info(f"Проверяем, что пользователь {user} удалился из таблицы")
     assert not table.find_row_by_data(user), f"Пользователь {user} не удалился из таблицы"

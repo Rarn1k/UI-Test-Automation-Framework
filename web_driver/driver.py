@@ -7,7 +7,7 @@ from web_driver.driver_factory import DriverFactory
 
 class Driver(metaclass=SingletonMeta):
     def __init__(self):
-        LoggerManager().get_logger().debug("Создаём экземпляр обёртки Driver")
+        LoggerManager().debug("Создаём экземпляр обёртки Driver")
         self._wrapper = DriverFactory.create_driver()
 
     def get_driver(self) -> WebDriver:
@@ -15,13 +15,13 @@ class Driver(metaclass=SingletonMeta):
 
     def quit(self) -> None:
         if self._wrapper:
-            LoggerManager().get_logger().debug("Обёртка Driver вызывает завершение драйвера")
+            LoggerManager().debug("Обёртка Driver вызывает завершение драйвера")
             self._wrapper.quit()
             self._wrapper = None
-            LoggerManager().get_logger().debug("Удаляем экземпляр обёртки")
+            LoggerManager().debug("Удаляем экземпляр обёртки")
             type(self).clear_instance()
 
     def load_page(self, url: str) -> None:
         if self._wrapper:
-            LoggerManager().get_logger().info(f"Загружаем страницу с обёртки {url}")
+            LoggerManager().info(f"Загружаем страницу с обёртки {url}")
             self._wrapper.load_page(url)

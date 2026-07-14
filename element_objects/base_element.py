@@ -17,16 +17,16 @@ class BaseElement(ABC):
 
     def find_element(self, parent: WebElement | None = None) -> WebElement:
         context = parent if parent else "всей страницы"
-        LoggerManager().get_logger().info(f"Ищем элемент {self._name} по локатору {self._locator} внутри {context}")
+        LoggerManager().info(f"Ищем элемент {self._name} по локатору {self._locator} внутри {context}")
         return self._waiter.wait_for_presence(self._locator, parent)
 
     def find_elements(self, parent: WebElement | None = None) -> list[WebElement]:
         context = parent if parent else "всей страницы"
-        LoggerManager().get_logger().info(f"Ищем элементы {self._name} по локатору {self._locator} внутри {context}")
+        LoggerManager().info(f"Ищем элементы {self._name} по локатору {self._locator} внутри {context}")
         return self._waiter.wait_for_all_present(self._locator, parent)
 
     def click(self) -> None:
-        LoggerManager().get_logger().info(f"Нажимаем на элемент {self._name}")
+        LoggerManager().info(f"Нажимаем на элемент {self._name}")
         element = self._waiter.wait_for_clickable(self._locator)
         try:
             element.click()

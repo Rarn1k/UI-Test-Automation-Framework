@@ -15,13 +15,13 @@ class FrameManager:
 
     @staticmethod
     def switch_to_frame(element: BaseElement) -> None:
-        LoggerManager().get_logger().info(f"Переключаемся на фрейм по элементу {element}")
+        LoggerManager().info(f"Переключаемся на фрейм по элементу {element}")
         frame = element.find_element()
         Waiter().wait_to_switch_frame(frame)
 
     @staticmethod
     def switch_to_default() -> None:
-        LoggerManager().get_logger().info(f"Переключаемся на обычную страницу")
+        LoggerManager().info(f"Переключаемся на обычную страницу")
         Driver().get_driver().switch_to.default_content()
 
     @classmethod

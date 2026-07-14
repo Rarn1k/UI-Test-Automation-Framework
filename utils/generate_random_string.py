@@ -8,6 +8,6 @@ class RandomUtils:
 
     @classmethod
     def generate_random_string(cls, length: int = DEFAULT_LENGTH) -> str:
-        LoggerManager().get_logger().info("Создаём случайную строку")
+        LoggerManager().info("Создаём случайную строку")
         chars = string.ascii_letters + string.digits
         return ''.join(random.choice(chars) for _ in range(length))

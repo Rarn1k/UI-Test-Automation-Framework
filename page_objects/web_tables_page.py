@@ -13,9 +13,9 @@ class WebTablesPage(BasePage):
         super().__init__((By.CLASS_NAME, "web-tables-wrapper"), "Web tables page")
 
     def is_displayed(self) -> bool:
-        LoggerManager().get_logger().info(f"Проверяем, загружена ли страница {self._name}")
+        LoggerManager().info(f"Проверяем, загружена ли страница {self._name}")
         return Label(self._locator, self._name).find_element().is_displayed()
 
     def click_add_new_record(self) -> None:
-        LoggerManager().get_logger().info(f"Добавляем новую запись")
+        LoggerManager().info(f"Добавляем новую запись")
         self.__add_button.click()

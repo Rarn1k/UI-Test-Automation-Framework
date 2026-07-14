@@ -10,7 +10,7 @@ class FirefoxDriver(BaseDriver):
     def __init__(self) -> None:
         super().__init__()
         options = self._set_options()
-        LoggerManager().get_logger().info("Создаём драйвер Firefox")
+        LoggerManager().info("Создаём драйвер Firefox")
         self._driver = webdriver.Firefox(options=options)
 
     @staticmethod

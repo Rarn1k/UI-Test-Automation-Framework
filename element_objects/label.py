@@ -9,10 +9,10 @@ class Label(BaseElement):
         super().__init__(locator, name)
 
     def wait_closed(self) -> bool:
-        LoggerManager().get_logger().info(f"Ждём, пока label '{self._name}' закроется")
+        LoggerManager().info(f"Ждём, пока label '{self._name}' закроется")
         return self._waiter.wait_for_invisibility(self._locator)
 
     def get_texts(self, parent : WebElement | None = None) -> list[str]:
         labels = self.find_elements(parent)
-        LoggerManager().get_logger().info(f"Возвращаем тексты элементов: '{self._name}'")
+        LoggerManager().info(f"Возвращаем тексты элементов: '{self._name}'")
         return [label.text.strip() for label in labels]
