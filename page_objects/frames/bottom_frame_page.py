@@ -9,7 +9,8 @@ class BottomFramePage(BasePage):
     __page_text = Label((By.ID, "sampleHeading"), "Bottom frame text")
 
     def __init__(self):
-        super().__init__((By.XPATH, "//*[contains(text(), 'This is a sample page')]"), "Bottom frame page")
+        element = Label((By.XPATH, "//*[contains(text(), 'This is a sample page')]"), "Sample page")
+        super().__init__(element, "Bottom frame page")
 
     def get_page_text(self) -> str:
         LoggerManager().info(f"Получаем текст страницы {self._name}")

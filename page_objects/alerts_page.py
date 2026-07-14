@@ -14,7 +14,8 @@ class AlertsPage(BasePage):
     __prompt_text = Label((By.ID, "promptResult"), "Prompt text")
 
     def __init__(self) -> None:
-        super().__init__((By.ID, "javascriptAlertsWrapper"), "Alerts Page")
+        element = Label((By.ID, "javascriptAlertsWrapper"),  "Alerts wrapper")
+        super().__init__(element, "Alerts Page")
 
     def click_alert(self) -> None:
         LoggerManager().info(f"Нажимаем на кнопку алерта")

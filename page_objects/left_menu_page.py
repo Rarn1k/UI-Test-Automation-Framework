@@ -1,6 +1,7 @@
 from selenium.webdriver.common.by import By
 
 from element_objects.button import Button
+from element_objects.label import Label
 from page_objects.base_page import BasePage
 
 from utils.logger_manager import LoggerManager
@@ -16,7 +17,8 @@ class LeftMenuPage(BasePage):
     __links_href = Button((By.XPATH, "//a[@href='/links']"), "links link")
 
     def __init__(self) -> None:
-        super().__init__((By.CLASS_NAME, "left-pannel"), "Left Menu Page")
+        element = Label((By.CLASS_NAME, "left-pannel"), "left pannel element")
+        super().__init__(element, "Left Menu Page")
 
     def click_alerts(self) -> None:
         LoggerManager().info("Нажимаем на ссылку alerts")

@@ -14,7 +14,8 @@ class TablePage(BasePage):
     __delete_row_button = Label((By.XPATH, ".//*[@title='Delete']"), "Delete table")
 
     def __init__(self):
-        super().__init__((By.XPATH, "//table[contains(@class, 'table')]"), "Table page")
+        element = Label((By.XPATH, "//table[contains(@class, 'table')]"), "Table")
+        super().__init__(element, "Table page")
 
     def get_rows(self) -> list[WebElement]:
         LoggerManager().info("Ищем строки таблицы")

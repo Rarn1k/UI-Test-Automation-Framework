@@ -13,8 +13,8 @@ class NestedFramesPage(BasePage):
     __child_frame = Label((By.XPATH, "//iframe[contains(@srcdoc, 'Child Iframe')]"), "Child Iframe")
 
     def __init__(self) -> None:
-        super().__init__((By.XPATH, "//*[@class='text-center' and text()='Nested Frames']"),
-                         "Nested frames page")
+        element = Label((By.XPATH, "//*[@class='text-center' and text()='Nested Frames']"), "Nested Frames")
+        super().__init__(element, "Nested frames page")
 
     def get_parent_frame_text(self) -> str:
         LoggerManager().info(f"Получаем текст родительского фрейма")

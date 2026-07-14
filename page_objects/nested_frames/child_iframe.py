@@ -9,7 +9,8 @@ class ChildIFramePage(BasePage):
     __page_text = Label((By.TAG_NAME, "body"), "Child frame text")
 
     def __init__(self) -> None:
-        super().__init__((By.XPATH, "//*[contains(text(), 'Child Iframe')]"), "Child Iframe page")
+        element = Label((By.XPATH, "//*[contains(text(), 'Child Iframe')]"), "Child Iframe")
+        super().__init__(element, "Child Iframe page")
 
     def get_page_text(self) -> str:
         LoggerManager().info(f"Получаем текст страницы {self._name}")

@@ -19,7 +19,8 @@ class RegistrationFormPage(BasePage):
     __submit_button = Button((By.ID, 'submit'), 'Submit button')
 
     def __init__(self) -> None:
-        super().__init__((By.ID, "registration-form-modal"), "Registration form")
+        element = Label((By.ID, "registration-form-modal"), "Registration form element")
+        super().__init__(element, "Registration form")
 
     def set_all_inputs(self, user: User) -> None:
         self.set_first_name(user.first_name)
@@ -59,4 +60,4 @@ class RegistrationFormPage(BasePage):
 
     def is_not_displayed(self) -> bool:
         LoggerManager().info(f"Проверяем, что страница {self._name} закрылась")
-        return Label(self._locator, self._name).wait_closed()
+        return self._element.wait_closed()

@@ -9,7 +9,8 @@ class UpperFramePage(BasePage):
     __page_text = Label((By.ID, "sampleHeading"), "Upper frame text")
 
     def __init__(self) -> None:
-        super().__init__((By.XPATH, "//*[contains(text(), 'This is a sample page')]"), "Upper frame page")
+        element = Label((By.XPATH, "//*[contains(text(), 'This is a sample page')]"), "Sample page")
+        super().__init__(element, "Upper frame page")
 
     def get_page_text(self) -> str:
         LoggerManager().info(f"Получаем текст страницы {self._name}")

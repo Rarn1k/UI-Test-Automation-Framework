@@ -13,7 +13,8 @@ class FramesPage(BasePage):
     __bottom_frame = Label((By.ID, "frame2"), "Bottom frame")
 
     def __init__(self) -> None:
-        super().__init__((By.XPATH, "//*[@class='text-center' and text()='Frames']"), "Frames page")
+        element = Label((By.XPATH, "//*[@class='text-center' and text()='Frames']"), "Frames")
+        super().__init__(element, "Frames page")
 
     def get_upper_frame_text(self) -> str:
         with FrameManager.frame_context(self.__upper_frame):

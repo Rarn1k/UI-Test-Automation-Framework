@@ -9,7 +9,8 @@ class ParentFramePage(BasePage):
     __page_text = Label((By.XPATH, "//*[contains(text(), 'Parent frame')]"), "Parent frame text")
 
     def __init__(self) -> None:
-        super().__init__((By.XPATH, "//*[contains(text(), 'Parent frame')]"), "Parent frame page")
+        element = Label((By.XPATH, "//*[contains(text(), 'Parent frame')]"), "Parent frame text")
+        super().__init__(element, "Parent frame page")
 
     def get_page_text(self) -> str:
         LoggerManager().info(f"Получаем текст страницы {self._name}")
