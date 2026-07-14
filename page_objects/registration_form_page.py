@@ -21,10 +21,6 @@ class RegistrationFormPage(BasePage):
     def __init__(self) -> None:
         super().__init__((By.ID, "registration-form-modal"), "Registration form")
 
-    def is_displayed(self) -> bool:
-        LoggerManager().info(f"Проверяем, загружена ли страница {self._name}")
-        return Label(self._locator, self._name).find_element().is_displayed()
-
     def set_all_inputs(self, user: TableModel) -> None:
         self.set_first_name(user.first_name)
         self.set_last_name(user.last_name)

@@ -16,10 +16,6 @@ class TablePage(BasePage):
     def __init__(self):
         super().__init__((By.XPATH, "//table[contains(@class, 'table')]"), "Table page")
 
-    def is_displayed(self) -> bool:
-        LoggerManager().info(f"Проверяем, загружена ли страница таблицы {self._name}")
-        return Label(self._locator, self._name).find_element().is_displayed()
-
     def get_rows(self) -> list[WebElement]:
         LoggerManager().info("Ищем строки таблицы")
         return self.__table_row.find_elements()

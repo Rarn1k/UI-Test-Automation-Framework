@@ -16,10 +16,6 @@ class AlertsPage(BasePage):
     def __init__(self) -> None:
         super().__init__((By.ID, "javascriptAlertsWrapper"), "Alerts Page")
 
-    def is_displayed(self) -> bool:
-        LoggerManager().info(f"Проверяем, загружена ли страница {self._name}")
-        return Label(self._locator, self._name).find_element().is_displayed()
-
     def click_alert(self) -> None:
         LoggerManager().info(f"Нажимаем на кнопку алерта")
         self.__alert_button.click()
