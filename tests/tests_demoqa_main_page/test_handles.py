@@ -6,7 +6,7 @@ from page_objects.links_page import LinksPage
 from page_objects.main_page import MainPage
 from page_objects.sample_page import SamplePage
 from utils.logger_manager import LoggerManager
-from utils.tub_manager import TubManager
+from utils.tab_manager import TabManager
 
 
 def test_handles(driver: WebDriver, main_page: MainPage) -> None:
@@ -27,28 +27,26 @@ def test_handles(driver: WebDriver, main_page: MainPage) -> None:
     assert browser.is_displayed(), "Страница Browser Windows не отобразилась"
 
     LoggerManager().info("Создаём экземпляр Tub Manager")
-    tub_manager = TubManager()
-    LoggerManager().info("Сохраняем текущие вкладки")
-    old_handles = tub_manager.get_all_handles()
+    tab_manager = TabManager()
     LoggerManager().info("Сохраняем текущую вкладку")
-    browser_handle = tub_manager.get_current_handle()
+    browser_handle = tab_manager.get_current_handle()
     LoggerManager().info("Нажимаем на кнопку New Tab")
     browser.click_new_tab()
     LoggerManager().info("Проверяем, что открыта новая вкладка /sample со страницей sample page")
     LoggerManager().info("Переключаемся на новую вкладку")
-    tub_manager.switch_to_new_window(old_handles)
+    tab_manager.switch_to_new_window(1)
     LoggerManager().info("Проверяем, что путь текущей вкладки - /sample")
-    assert tub_manager.get_current_path() == "/sample", \
-        f"Путь текущей вкладки: {tub_manager.get_current_path()}, ожидался /sample"
+    assert tab_manager.get_current_path() == "/sample", \
+        f"Путь текущей вкладки: {tab_manager.get_current_path()}, ожидался /sample"
     LoggerManager().info("Создаём экземпляр страницы Sample page")
     sample = SamplePage()
     LoggerManager().info("Проверяем, что открыта страница Sample page")
     assert sample.is_displayed(), "Страница Sample page не отобразилась"
 
     LoggerManager().info("Закрываем текущую вкладку")
-    tub_manager.close_current_window()
+    tab_manager.close_current_window()
     LoggerManager().info("Переключаемся на вкладку страницы Browser Windows")
-    tub_manager.switch_to_window(browser_handle)
+    tab_manager.switch_to_window(browser_handle)
     LoggerManager().info("Проверяем, что открыта страница с формой Browser Windows")
     assert browser.is_displayed(), "Страница Browser Windows не отобразилась"
 
@@ -62,15 +60,14 @@ def test_handles(driver: WebDriver, main_page: MainPage) -> None:
     assert links_page.is_displayed(), "Страница Links page не отобразилась"
 
     LoggerManager().info("Сохраняем текущие вкладки")
-    old_handles = tub_manager.get_all_handles()
     LoggerManager().info("Нажимаем на ссылку Home")
     links_page.click_home_link()
     LoggerManager().info("Переключаемся на новую вкладку")
-    tub_manager.switch_to_new_window(old_handles)
+    tab_manager.switch_to_new_window(1)
     LoggerManager().info("Проверяем, что открыта страница main page")
     assert main_page.is_displayed(), "Страница main page не отобразилась"
 
     LoggerManager().info("Переключаемся на прошлую вкладку")
-    tub_manager.switch_to_previous_window()
+    tab_manager.switch_to_previous_window()
     LoggerManager().info("Проверяем, что открыта страница Links page")
     assert links_page.is_displayed(), "Страница Links page не отобразилась"

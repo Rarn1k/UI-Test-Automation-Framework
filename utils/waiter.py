@@ -73,9 +73,9 @@ class Waiter:
         return cls._until(EC.invisibility_of_element_located(locator), f"Элемент {locator} не исчез")
 
     @classmethod
-    def wait_for_new_window(cls, old_handles: list[str]) -> bool:
+    def wait_for_next_window(cls, windows_count: int) -> bool:
         return cls._until(
-            lambda d: len(d.window_handles) > len(old_handles),
+            lambda d: len(d.window_handles) > windows_count,
             "Новая вкладка не появилась за отведённое время"
         )
 

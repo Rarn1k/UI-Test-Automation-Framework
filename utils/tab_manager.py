@@ -6,7 +6,7 @@ from web_driver.driver import Driver
 
 
 
-class TubManager:
+class TabManager:
     @staticmethod
     def get_all_handles() -> list[str]:
         LoggerManager().info("Получаем все вкладки")
@@ -30,20 +30,19 @@ class TubManager:
         path = parsed.path or "/"
         return path
 
-    def get_new_window_opened(self, old_handles: list[str]) -> str:
-        Waiter.wait_for_new_window(old_handles)
-        LoggerManager().info("Получаем новую вкладку")
+    def get_last_window(self, windows_count: int) -> str:
+        Waiter.wait_for_next_window(windows_count)
+        LoggerManager().info("Получаем последнюю вкладку")
         new_handles = self.get_all_handles()
-        new_handle = (set(new_handles) - set(old_handles)).pop()
-        return new_handle
+        return new_handles[-1]
 
     @staticmethod
     def switch_to_window(handle: str) -> None:
         LoggerManager().info(f"Переключаемся на вкладку с handle: {handle}")
         Driver().get_driver().switch_to.window(handle)
 
-    def switch_to_new_window(self, old_handles: list[str]) -> str:
-        new_handle = self.get_new_window_opened(old_handles)
+    def switch_to_new_window(self, windows_count: int) -> str:
+        new_handle = self.get_last_window(windows_count)
         self.switch_to_window(new_handle)
         return new_handle
 
