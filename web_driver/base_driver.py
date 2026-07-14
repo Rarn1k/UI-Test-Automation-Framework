@@ -12,6 +12,9 @@ class BaseDriver(ABC, metaclass=SingletonMeta):
         self._driver = None
 
     def get_driver(self) -> WebDriver:
+        if self._driver is None:
+            LoggerManager().error("Драйвер не инициализирован, но была попытка его получить")
+            raise RuntimeError("Драйвер не инициализирован. Сначала вызовите метод инициализации.")
         LoggerManager().debug(f"Возвращаем драйвер {self._driver}")
         return self._driver
 
