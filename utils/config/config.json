@@ -1,0 +1,9 @@
+{
+  "demoqa_url": "https://demoqa.com/",
+
+  "browser": "chrome",
+
+  "timeout": 5,
+  "chrome_driver_args": ["--incognito", "--no-sandbox"],
+  "firefox_driver_args": ["-private"]
+  }

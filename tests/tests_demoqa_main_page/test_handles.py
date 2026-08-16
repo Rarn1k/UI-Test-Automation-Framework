@@ -1,0 +1,72 @@
+from selenium.webdriver.remote.webdriver import WebDriver
+
+from page_objects.browser_windows_page import BrowserWindowsPage
+from page_objects.left_menu_page import LeftMenuPage
+from page_objects.links_page import LinksPage
+from page_objects.main_page import MainPage
+from page_objects.sample_page import SamplePage
+from utils.logger_manager import LoggerManager
+from utils.tab_manager import TabManager
+
+
+def test_handles(driver: WebDriver, main_page: MainPage) -> None:
+    LoggerManager().info("Проверяем, что главная страница не отобразилась")
+    assert main_page.is_displayed(), "Главная страница не отобразилась"
+
+    LoggerManager().info("Нажимаем на ссылку alerts, frame & Windows")
+    main_page.click_alerts_windows()
+    LoggerManager().info("Создаём экземпляр страницы левого меню")
+    left_menu = LeftMenuPage()
+    LoggerManager().info("Проверяем, что открылось левое меню")
+    assert left_menu.is_displayed(), "Левое меню не отобразилось"
+    LoggerManager().info("Нажимаем на ссылку Browser Windows")
+    left_menu.click_browser_windows()
+    LoggerManager().info("Создаём экземпляр страницы Browser Windows")
+    browser = BrowserWindowsPage()
+    LoggerManager().info("Проверяем, что открылась страница Browser Windows")
+    assert browser.is_displayed(), "Страница Browser Windows не отобразилась"
+
+    LoggerManager().info("Создаём экземпляр Tub Manager")
+    LoggerManager().info("Сохраняем текущую вкладку")
+    browser_handle = TabManager.get_current_handle()
+    LoggerManager().info("Нажимаем на кнопку New Tab")
+    browser.click_new_tab()
+    LoggerManager().info("Проверяем, что открыта новая вкладка /sample со страницей sample page")
+    LoggerManager().info("Переключаемся на новую вкладку")
+    TabManager.switch_to_new_window(1)
+    LoggerManager().info("Проверяем, что путь текущей вкладки - /sample")
+    assert TabManager.get_current_path() == "/sample", \
+        f"Путь текущей вкладки: {TabManager.get_current_path()}, ожидался /sample"
+    LoggerManager().info("Создаём экземпляр страницы Sample page")
+    sample = SamplePage()
+    LoggerManager().info("Проверяем, что открыта страница Sample page")
+    assert sample.is_displayed(), "Страница Sample page не отобразилась"
+
+    LoggerManager().info("Закрываем текущую вкладку")
+    TabManager.close_current_window()
+    LoggerManager().info("Переключаемся на вкладку страницы Browser Windows")
+    TabManager.switch_to_window(browser_handle)
+    LoggerManager().info("Проверяем, что открыта страница с формой Browser Windows")
+    assert browser.is_displayed(), "Страница Browser Windows не отобразилась"
+
+    LoggerManager().info("В левом меню нажимаем на Elements")
+    left_menu.click_elements_button()
+    LoggerManager().info("В левом меню нажимаем Links")
+    left_menu.click_links()
+    LoggerManager().info("Создаём экземпляр страницы Links page")
+    links_page = LinksPage()
+    LoggerManager().info("Проверяем, что открыта страница Links page")
+    assert links_page.is_displayed(), "Страница Links page не отобразилась"
+
+    LoggerManager().info("Сохраняем текущие вкладки")
+    LoggerManager().info("Нажимаем на ссылку Home")
+    links_page.click_home_link()
+    LoggerManager().info("Переключаемся на новую вкладку")
+    TabManager.switch_to_new_window(1)
+    LoggerManager().info("Проверяем, что открыта страница main page")
+    assert main_page.is_displayed(), "Страница main page не отобразилась"
+
+    LoggerManager().info("Переключаемся на прошлую вкладку")
+    TabManager.switch_to_previous_window()
+    LoggerManager().info("Проверяем, что открыта страница Links page")
+    assert links_page.is_displayed(), "Страница Links page не отобразилась"
